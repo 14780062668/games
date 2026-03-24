@@ -1,0 +1,46 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "选择游戏"
+      }
+    },
+    {
+      "path": "pages/sudoku/sudoku",
+      "style": {
+        "navigationBarTitleText": "数独"
+      }
+    },
+    {
+      "path": "pages/gomoku/gomoku",
+      "style": {
+        "navigationBarTitleText": "五子棋"
+      }
+    },
+    {
+      "path": "pages/jinhua/jinhua",
+      "style": {
+        "navigationBarTitleText": "打金花"
+      }
+    },
+    {
+      "path": "pages/ssq/ssq",
+      "style": {
+        "navigationBarTitleText": "随机双色球"
+      }
+    },
+    {
+      "path": "pages/dice/dice",
+      "style": {
+        "navigationBarTitleText": "摇色子"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "小游戏",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  }
+}

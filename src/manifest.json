@@ -1,0 +1,17 @@
+{
+  "name": "games",
+  "appid": "wx3dd141820c627a49",
+  "description": "",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "mp-weixin": {
+    "appid": "wx3dd141820c627a49",
+    "setting": {
+      "urlCheck": false
+    },
+    "usingComponents": true
+  },
+  "vueVersion": "3",
+  "locale": "zh-Hans"
+}
