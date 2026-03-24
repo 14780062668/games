@@ -210,7 +210,7 @@ function deal() {
 
 <style scoped>
 .page {
-  padding: 16rpx;
+  padding: 24rpx 18rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -224,22 +224,34 @@ function deal() {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 18rpx 16rpx;
+  box-sizing: border-box;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 16rpx;
 }
 .title {
   font-size: 40rpx;
-  font-weight: 700;
-  color: #222;
+  font-weight: 800;
+  color: #111;
 }
 .panel {
   width: 100%;
-  margin-bottom: 22rpx;
+  margin-bottom: 16rpx;
+  background: #fff;
+  border-radius: 22rpx;
+  padding: 18rpx 16rpx 22rpx;
+  box-sizing: border-box;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.05);
 }
 .label {
   display: block;
   font-size: 28rpx;
-  color: #444;
-  margin-bottom: 16rpx;
+  color: #374151;
+  font-weight: 700;
+  margin-bottom: 14rpx;
+  text-align: center;
 }
 .cards {
   display: flex;
@@ -252,7 +264,7 @@ function deal() {
   height: 198rpx;
   border-radius: 18rpx;
   background: #fff;
-  box-shadow: 0 10rpx 24rpx rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12rpx 28rpx rgba(0, 0, 0, 0.08);
   border: none;
   overflow: hidden;
   display: block;
@@ -265,6 +277,7 @@ function deal() {
 .card.show {
   opacity: 1;
   transform: translateY(0) scale(1);
+  box-shadow: 0 16rpx 36rpx rgba(0, 0, 0, 0.12);
 }
 .poker-img {
   width: 100%;
@@ -302,7 +315,11 @@ function deal() {
 .deal {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: #fff;
-  border-radius: 14rpx;
+  border-radius: 16rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  padding: 0 18rpx;
+  font-weight: 700;
 }
 .deal:disabled {
   opacity: 0.65;
@@ -310,11 +327,11 @@ function deal() {
 .result {
   width: 100%;
   text-align: center;
-  margin-top: 10rpx;
+  margin-top: 6rpx;
   background: rgba(255, 255, 255, 0.96);
   border-radius: 20rpx;
   padding: 22rpx 18rpx;
-  box-shadow: 0 8rpx 28rpx rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
 }
 .result-text {
