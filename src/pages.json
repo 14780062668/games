@@ -3,44 +3,62 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "选择游戏"
+        "navigationBarTitleText": "随身工具"
       }
     },
     {
-      "path": "pages/sudoku/sudoku",
+      "path": "pages/calc/calc",
       "style": {
-        "navigationBarTitleText": "数独"
+        "navigationBarTitleText": "计算器"
       }
     },
     {
-      "path": "pages/gomoku/gomoku",
+      "path": "pages/ledger/ledger",
       "style": {
-        "navigationBarTitleText": "五子棋"
+        "navigationBarTitleText": "记账"
       }
     },
     {
-      "path": "pages/jinhua/jinhua",
+      "path": "pages/todo/todo",
       "style": {
-        "navigationBarTitleText": "打金花"
+        "navigationBarTitleText": "待办"
       }
     },
     {
-      "path": "pages/ssq/ssq",
+      "path": "pages/calendar/calendar",
       "style": {
-        "navigationBarTitleText": "随机双色球"
+        "navigationBarTitleText": "日历"
       }
     },
     {
-      "path": "pages/dice/dice",
+      "path": "pages/convert/convert",
       "style": {
-        "navigationBarTitleText": "摇色子"
+        "navigationBarTitleText": "单位换算"
+      }
+    },
+    {
+      "path": "pages/compress/compress",
+      "style": {
+        "navigationBarTitleText": "图片压缩"
+      }
+    },
+    {
+      "path": "pages/format/format",
+      "style": {
+        "navigationBarTitleText": "格式转换"
+      }
+    },
+    {
+      "path": "pages/weather/weather",
+      "style": {
+        "navigationBarTitleText": "天气查询"
       }
     }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "小游戏",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarTitleText": "随身工具",
+    "navigationBarBackgroundColor": "#F3EFE8",
+    "backgroundColor": "#F3EFE8"
   }
 }

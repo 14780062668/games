@@ -1,7 +1,7 @@
 {
-  "name": "games",
+  "name": "随身工具",
   "appid": "wx3dd141820c627a49",
-  "description": "",
+  "description": "计算器、记账、待办、日历等实用工具",
   "versionName": "1.0.0",
   "versionCode": "100",
   "transformPx": false,
@@ -10,7 +10,13 @@
     "setting": {
       "urlCheck": false
     },
-    "usingComponents": true
+    "usingComponents": true,
+    "permission": {
+      "scope.userLocation": {
+        "desc": "用于查询所在地天气"
+      }
+    },
+    "requiredPrivateInfos": ["getLocation"]
   },
   "vueVersion": "3",
   "locale": "zh-Hans"
