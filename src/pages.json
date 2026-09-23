@@ -47,6 +47,12 @@
       "style": {
         "navigationBarTitleText": "格式转换"
       }
+    },
+    {
+      "path": "pages/docx/docx",
+      "style": {
+        "navigationBarTitleText": "Word转HTML"
+      }
     }
   ],
   "globalStyle": {
