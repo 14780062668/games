@@ -49,11 +49,19 @@
       }
     },
     {
+      "path": "pages/privacy/privacy",
+      "style": {
+        "navigationBarTitleText": "隐私政策"
+      }
+    }
+    // #ifdef H5
+    ,{
       "path": "pages/docx/docx",
       "style": {
         "navigationBarTitleText": "Word转HTML"
       }
     }
+    // #endif
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",

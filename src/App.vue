@@ -3,7 +3,22 @@
 </template>
 
 <script setup>
-import { onShow } from '@dcloudio/uni-app'
+import { onLaunch, onShow } from '@dcloudio/uni-app'
+import { setPrivacyResolve } from './utils/privacy.js'
+
+onLaunch(() => {
+  // #ifdef MP-WEIXIN
+  if (typeof wx !== 'undefined' && wx.onNeedPrivacyAuthorization) {
+    wx.onNeedPrivacyAuthorization((resolve) => {
+      setPrivacyResolve(resolve)
+      const o = Object.create(null)
+      o.url = '/pages/privacy/privacy?need=1'
+      uni.navigateTo(o)
+    })
+  }
+  // #endif
+})
+
 onShow(() => {
   uni.hideLoading()
 })

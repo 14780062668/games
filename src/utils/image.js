@@ -42,6 +42,8 @@ export function getFileSize(path) {
   })
 }
 
+import { requirePrivacy } from './privacy.js'
+
 function pickFail(err, reject) {
   const msg = (err && (err.errMsg || err.message)) || ''
   if (/cancel/i.test(msg)) {
@@ -52,35 +54,38 @@ function pickFail(err, reject) {
 }
 
 export function pickImage() {
-  return new Promise((resolve, reject) => {
-    const done = (path) => {
-      if (!path) {
-        reject(new Error('未选择图片'))
-        return
-      }
-      resolve(path)
-    }
-    if (typeof uni.chooseMedia === 'function') {
-      uni.chooseMedia({
-        count: 1,
-        mediaType: ['image'],
-        sourceType: ['album', 'camera'],
-        success: (res) => {
-          const f = res.tempFiles && res.tempFiles[0]
-          done((f && (f.tempFilePath || f.path)) || '')
-        },
-        fail: (err) => pickFail(err, reject),
+  return requirePrivacy().then(
+    () =>
+      new Promise((resolve, reject) => {
+        const done = (path) => {
+          if (!path) {
+            reject(new Error('未选择图片'))
+            return
+          }
+          resolve(path)
+        }
+        if (typeof uni.chooseMedia === 'function') {
+          uni.chooseMedia({
+            count: 1,
+            mediaType: ['image'],
+            sourceType: ['album'],
+            success: (res) => {
+              const f = res.tempFiles && res.tempFiles[0]
+              done((f && (f.tempFilePath || f.path)) || '')
+            },
+            fail: (err) => pickFail(err, reject),
+          })
+          return
+        }
+        uni.chooseImage({
+          count: 1,
+          sizeType: ['original'],
+          sourceType: ['album'],
+          success: (res) => done((res.tempFilePaths && res.tempFilePaths[0]) || ''),
+          fail: (err) => pickFail(err, reject),
+        })
       })
-      return
-    }
-    uni.chooseImage({
-      count: 1,
-      sizeType: ['original'],
-      sourceType: ['album', 'camera'],
-      success: (res) => done((res.tempFilePaths && res.tempFilePaths[0]) || ''),
-      fail: (err) => pickFail(err, reject),
-    })
-  })
+  )
 }
 
 function h5Draw(src, mime, quality, maxEdge) {
@@ -218,23 +223,27 @@ export function saveOrDownload(path, filename) {
     }
     return
   }
-  uni.saveImageToPhotosAlbum({
-    filePath: path,
-    success: () => uni.showToast({ title: '已保存到相册' }),
-    fail: (err) => {
-      const msg = (err && err.errMsg) || ''
-      if (/auth deny|authorize/i.test(msg)) {
-        uni.showModal({
-          title: '需要相册权限',
-          content: '请在设置中允许保存到相册',
-          confirmText: '去设置',
-          success: (r) => {
-            if (r.confirm) uni.openSetting({})
-          },
-        })
-        return
-      }
-      uni.showToast({ title: '保存失败', icon: 'none' })
-    },
-  })
+  requirePrivacy()
+    .then(() => {
+      uni.saveImageToPhotosAlbum({
+        filePath: path,
+        success: () => uni.showToast({ title: '已保存到相册' }),
+        fail: (err) => {
+          const msg = (err && err.errMsg) || ''
+          if (/auth deny|authorize/i.test(msg)) {
+            uni.showModal({
+              title: '需要相册权限',
+              content: '请在设置中允许保存到相册',
+              confirmText: '去设置',
+              success: (r) => {
+                if (r.confirm) uni.openSetting({})
+              },
+            })
+            return
+          }
+          uni.showToast({ title: '保存失败', icon: 'none' })
+        },
+      })
+    })
+    .catch(() => {})
 }

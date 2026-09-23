@@ -18,6 +18,7 @@
         <text class="hint">{{ t.hint }}</text>
       </view>
     </view>
+    <text class="priv" @tap="go('/pages/privacy/privacy')">隐私政策</text>
   </view>
 </template>
 
@@ -41,7 +42,9 @@ const tools = [
   { name: '单位换算', hint: '长度重量温度', path: '/pages/convert/convert', mark: '换', bg: '#8a6a2f', fg: '#f8f1e0' },
   { name: '图片压缩', hint: '缩小体积', path: '/pages/compress/compress', mark: '图', bg: '#5b4b8a', fg: '#f1edfa' },
   { name: '格式转换', hint: '图片时间颜色', path: '/pages/format/format', mark: '转', bg: '#2f6f8a', fg: '#e7f4f8' },
+  // #ifdef H5
   { name: 'Word转HTML', hint: 'docx 转网页', path: '/pages/docx/docx', mark: '文', bg: '#6b4c7a', fg: '#f8f1fa' },
+  // #endif
 ]
 
 function go(url) {
@@ -117,6 +120,13 @@ function go(url) {
   display: block;
   margin-top: 8rpx;
   font-size: 22rpx;
+  color: #8a8278;
+}
+.priv {
+  display: block;
+  text-align: center;
+  margin-top: 12rpx;
+  font-size: 24rpx;
   color: #8a8278;
 }
 </style>
