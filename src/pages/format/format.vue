@@ -1,7 +1,7 @@
 <template>
   <view class="page">
     <view class="tabs">
-      <text v-for="t in tabs" :key="t.id" class="tab" :class="{ on: tab === t.id }" @tap="tab = t.id">
+      <text v-for="t in tabs" :key="t.id" class="tab" :class="{ on: tab === t.id }" @tap="setTab(t.id)">
         {{ t.name }}
       </text>
     </view>
@@ -46,7 +46,7 @@
       <input class="inp" :value="colorIn" placeholder="#0f7a6c 或 15,122,108" @input="onColor" />
       <view class="swatch" :style="{ background: colorCss || '#efe8dc' }" />
       <text v-if="colorOut" class="result">{{ colorOut }}</text>
-      <text v-else-if="colorIn.trim()" class="err">颜色格式不正确</text>
+      <text v-else-if="colorBad" class="err">颜色格式不正确</text>
     </view>
 
     <view v-if="tab === 'json'" class="card">
@@ -75,6 +75,10 @@ const tabs = [
   { id: 'json', name: 'JSON' },
 ]
 const tab = ref('img')
+
+function setTab(id) {
+  tab.value = id
+}
 
 const imgSrc = ref('')
 const imgOut = ref('')
@@ -239,6 +243,7 @@ const colorOut = computed(() => {
   if (!c) return ''
   return c.hex + '\nrgb(' + c.r + ', ' + c.g + ', ' + c.b + ')'
 })
+const colorBad = computed(() => !!colorIn.value.trim() && !colorParsed.value)
 
 function onColor(e) {
   colorIn.value = String(e.detail.value || '').slice(0, 32)

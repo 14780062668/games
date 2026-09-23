@@ -18,7 +18,7 @@
         :key="f.id"
         class="f"
         :class="{ on: filter === f.id }"
-        @tap="filter = f.id"
+        @tap="setFilter(f.id)"
       >
         {{ f.name }}
       </text>
@@ -77,6 +77,10 @@ function persist() {
 
 function onDraft(e) {
   draft.value = String(e.detail.value || '').slice(0, 80)
+}
+
+function setFilter(id) {
+  filter.value = id
 }
 
 function add() {

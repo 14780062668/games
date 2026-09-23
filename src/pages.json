@@ -47,12 +47,6 @@
       "style": {
         "navigationBarTitleText": "格式转换"
       }
-    },
-    {
-      "path": "pages/weather/weather",
-      "style": {
-        "navigationBarTitleText": "天气查询"
-      }
     }
   ],
   "globalStyle": {

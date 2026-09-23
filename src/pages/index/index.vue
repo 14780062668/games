@@ -41,11 +41,12 @@ const tools = [
   { name: '单位换算', hint: '长度重量温度', path: '/pages/convert/convert', mark: '换', bg: '#8a6a2f', fg: '#f8f1e0' },
   { name: '图片压缩', hint: '缩小体积', path: '/pages/compress/compress', mark: '图', bg: '#5b4b8a', fg: '#f1edfa' },
   { name: '格式转换', hint: '图片时间颜色', path: '/pages/format/format', mark: '转', bg: '#2f6f8a', fg: '#e7f4f8' },
-  { name: '天气查询', hint: '城市七日预报', path: '/pages/weather/weather', mark: '天', bg: '#4a7c3a', fg: '#eef7ea' },
 ]
 
 function go(url) {
-  uni.navigateTo({ url })
+  const opts = Object.create(null)
+  opts.url = String(url)
+  uni.navigateTo(opts)
 }
 </script>
 

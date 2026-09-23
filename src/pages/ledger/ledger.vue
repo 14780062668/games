@@ -3,17 +3,15 @@
     <view class="sum">
       <view class="cell">
         <text class="lab">本月收入</text>
-        <text class="val in">{{ money(monthIn) }}</text>
+        <text class="val in">{{ inStr }}</text>
       </view>
       <view class="cell">
         <text class="lab">本月支出</text>
-        <text class="val out">{{ money(monthOut) }}</text>
+        <text class="val out">{{ outStr }}</text>
       </view>
       <view class="cell wide">
         <text class="lab">结余</text>
-        <text class="val" :class="monthIn - monthOut >= 0 ? 'in' : 'out'">
-          {{ money(monthIn - monthOut) }}
-        </text>
+        <text class="val" :class="balCls">{{ balStr }}</text>
       </view>
     </view>
 
@@ -28,7 +26,7 @@
           :key="c"
           class="chip"
           :class="{ on: form.cate === c }"
-          @tap="form.cate = c"
+          @tap="setCate(c)"
         >
           {{ c }}
         </view>
@@ -104,8 +102,10 @@ const form = reactive({
 
 const cates = computed(() => (form.type === 'in' ? IN : OUT))
 
-const monthIn = computed(() => sumMonth('in'))
-const monthOut = computed(() => sumMonth('out'))
+const inStr = computed(() => money(sumMonth('in')))
+const outStr = computed(() => money(sumMonth('out')))
+const balStr = computed(() => money(sumMonth('in') - sumMonth('out')))
+const balCls = computed(() => (sumMonth('in') - sumMonth('out') >= 0 ? 'in' : 'out'))
 
 const grouped = computed(() => {
   const map = {}
@@ -166,6 +166,10 @@ function setType(t) {
   form.type = t === 'in' ? 'in' : 'out'
   const next = t === 'in' ? IN : OUT
   if (!next.includes(form.cate)) form.cate = next[0]
+}
+
+function setCate(c) {
+  if (cates.value.includes(c)) form.cate = c
 }
 
 function onDate(e) {

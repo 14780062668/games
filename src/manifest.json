@@ -8,15 +8,15 @@
   "mp-weixin": {
     "appid": "wx3dd141820c627a49",
     "setting": {
-      "urlCheck": false
+      "urlCheck": true
     },
     "usingComponents": true,
+    "__usePrivacyCheck__": true,
     "permission": {
-      "scope.userLocation": {
-        "desc": "用于查询所在地天气"
+      "scope.writePhotosAlbum": {
+        "desc": "用于保存压缩或转换后的图片到相册"
       }
-    },
-    "requiredPrivateInfos": ["getLocation"]
+    }
   },
   "vueVersion": "3",
   "locale": "zh-Hans"
