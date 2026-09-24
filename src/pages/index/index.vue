@@ -38,10 +38,13 @@ const tools = [
   { name: '计算器', hint: '精准四则运算', path: '/pages/calc/calc', mark: '算', bg: '#1f1b16', fg: '#f6efe4' },
   { name: '记账', hint: '收支一目了然', path: '/pages/ledger/ledger', mark: '账', bg: '#0f7a6c', fg: '#e9f7f4' },
   { name: '待办', hint: '把事记下来', path: '/pages/todo/todo', mark: '待', bg: '#3d6ea8', fg: '#eaf2fb' },
-  { name: '日历', hint: '农历节日', path: '/pages/calendar/calendar', mark: '历', bg: '#c45c4a', fg: '#fdeeee' },
   { name: '单位换算', hint: '长度重量温度', path: '/pages/convert/convert', mark: '换', bg: '#8a6a2f', fg: '#f8f1e0' },
   { name: '图片压缩', hint: '缩小体积', path: '/pages/compress/compress', mark: '图', bg: '#5b4b8a', fg: '#f1edfa' },
   { name: '格式转换', hint: '图片时间颜色', path: '/pages/format/format', mark: '转', bg: '#2f6f8a', fg: '#e7f4f8' },
+  { name: '二维码', hint: '文字生成码', path: '/pages/qr/qr', mark: '码', bg: '#a24b3a', fg: '#fbeeea' },
+  // #ifdef MP-WEIXIN
+  { name: '内容安全', hint: '审核接口演示', path: '/pages/seccheck/seccheck', mark: '安', bg: '#4a5d4e', fg: '#e8f0ea' },
+  // #endif
   // #ifdef H5
   { name: 'Word转HTML', hint: 'docx 转网页', path: '/pages/docx/docx', mark: '文', bg: '#6b4c7a', fg: '#f8f1fa' },
   // #endif

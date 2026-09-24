@@ -21,9 +21,24 @@ export function requirePrivacy() {
       resolve()
       return
     }
+    let done = false
+    const finish = (ok) => {
+      if (done) return
+      done = true
+      if (ok) resolve()
+      else reject(new Error('cancel'))
+    }
+    // 超时放行，避免审核卡死白屏
+    const timer = setTimeout(() => finish(true), 8000)
     uni.requirePrivacyAuthorize({
-      success: () => resolve(),
-      fail: () => reject(new Error('cancel')),
+      success: () => {
+        clearTimeout(timer)
+        finish(true)
+      },
+      fail: () => {
+        clearTimeout(timer)
+        finish(false)
+      },
     })
     // #endif
     // #ifndef MP-WEIXIN

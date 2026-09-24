@@ -79,6 +79,7 @@ import { computed, reactive, ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { load, save, uid } from '../../utils/store.js'
 import { pad2 } from '../../utils/fmt.js'
+import { ensureSafeMsg } from '../../utils/secCheck.js'
 
 const KEY = 'tools_ledger_v1'
 const OUT = ['餐饮', '交通', '购物', '住房', '娱乐', '医疗', '其他']
@@ -177,7 +178,7 @@ function onDate(e) {
   if (v && v <= today) form.date = v
 }
 
-function add() {
+async function add() {
   const amt = Math.round(Number(form.amount) * 100) / 100
   if (!Number.isFinite(amt) || amt <= 0) {
     uni.showToast({ title: '请输入有效金额', icon: 'none' })
@@ -187,6 +188,8 @@ function add() {
     uni.showToast({ title: '金额过大', icon: 'none' })
     return
   }
+  const note = form.note.trim()
+  if (note && !(await ensureSafeMsg(note))) return
   const cate = cates.value.includes(form.cate) ? form.cate : cates.value[0]
   const date = form.date && form.date <= today ? form.date : today
   list.value.unshift({
@@ -194,7 +197,7 @@ function add() {
     type: form.type === 'in' ? 'in' : 'out',
     amount: amt,
     cate,
-    note: form.note.trim(),
+    note,
     date,
   })
   save(KEY, list.value)

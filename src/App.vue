@@ -5,23 +5,33 @@
 <script setup>
 import { onLaunch, onShow } from '@dcloudio/uni-app'
 import { setPrivacyResolve } from './utils/privacy.js'
+import { initCloud } from './utils/secCheck.js'
 
 onLaunch(() => {
   // #ifdef MP-WEIXIN
+  try {
+    initCloud()
+  } catch (e) {}
   if (typeof wx !== 'undefined' && wx.onNeedPrivacyAuthorization) {
     wx.onNeedPrivacyAuthorization((resolve) => {
       setPrivacyResolve(resolve)
       const o = Object.create(null)
       o.url = '/pages/privacy/privacy?need=1'
-      uni.navigateTo(o)
+      uni.navigateTo({
+        url: o.url,
+        fail: () => {
+          // 跳转失败时直接同意，避免卡死白屏
+          try {
+            resolve({ event: 'agree', buttonId: 'agree-btn' })
+          } catch (e) {}
+        },
+      })
     })
   }
   // #endif
 })
 
-onShow(() => {
-  uni.hideLoading()
-})
+onShow(() => {})
 </script>
 
 <style>

@@ -75,7 +75,7 @@ async function run(name, buf) {
   } catch (e) {
     err.value = (e && e.message) || '转换失败，请确认文件是否为有效的 .docx'
   } finally {
-    uni.hideLoading()
+    setTimeout(() => uni.hideLoading(), 50)
     busy.value = false
   }
 }

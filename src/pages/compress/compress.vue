@@ -45,6 +45,7 @@
 import { ref } from 'vue'
 import { onHide } from '@dcloudio/uni-app'
 import { pickImage, getFileSize, compressToJpeg, saveOrDownload, fmtSize } from '../../utils/image.js'
+import { ensureSafeImg } from '../../utils/secCheck.js'
 
 const src = ref('')
 const originSize = ref(0)
@@ -52,6 +53,10 @@ const quality = ref(70)
 const out = ref('')
 const outSize = ref(0)
 const busy = ref(false)
+
+function hideLoading() {
+  setTimeout(() => uni.hideLoading(), 50)
+}
 
 onHide(() => {
   uni.hideLoading()
@@ -64,13 +69,20 @@ function onSlide(e) {
 async function choose() {
   try {
     const path = await pickImage()
+    // 先展示再检测，避免审核时白屏/无数据
     src.value = path
     out.value = ''
     outSize.value = 0
     originSize.value = await getFileSize(path)
+    const ok = await ensureSafeImg(path)
+    if (!ok) {
+      src.value = ''
+      originSize.value = 0
+    }
   } catch (e) {
     if (e && e.message === 'cancel') return
-    uni.showToast({ title: (e && e.message) || '选择失败', icon: 'none' })
+    const tip = String((e && e.message) || '选择失败')
+    uni.showToast({ title: tip.length > 40 ? '选择失败，请重试' : tip, icon: 'none' })
   }
 }
 
@@ -82,14 +94,14 @@ async function run() {
     const r = await compressToJpeg(src.value, quality.value)
     out.value = r.path
     outSize.value = r.size
-    uni.hideLoading()
+    hideLoading()
     if (originSize.value && r.size >= originSize.value) {
       uni.showToast({ title: '已处理，体积未明显变小', icon: 'none' })
     } else {
       uni.showToast({ title: '压缩完成', icon: 'none' })
     }
   } catch (e) {
-    uni.hideLoading()
+    hideLoading()
     uni.showToast({ title: (e && e.message) || '压缩失败', icon: 'none' })
   } finally {
     busy.value = false

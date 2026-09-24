@@ -44,48 +44,74 @@ export function getFileSize(path) {
 
 import { requirePrivacy } from './privacy.js'
 
-function pickFail(err, reject) {
+function isCancel(err) {
   const msg = (err && (err.errMsg || err.message)) || ''
-  if (/cancel/i.test(msg)) {
-    reject(new Error('cancel'))
-    return
-  }
-  reject(new Error(msg || '选择失败'))
+  return /cancel/i.test(msg)
+}
+
+function chooseByImage() {
+  return new Promise((resolve, reject) => {
+    uni.chooseImage({
+      count: 1,
+      sizeType: ['compressed', 'original'],
+      sourceType: ['album'],
+      success: (res) => {
+        const path = (res.tempFilePaths && res.tempFilePaths[0]) || ''
+        if (!path) {
+          reject(new Error('未选择图片'))
+          return
+        }
+        resolve(path)
+      },
+      fail: (err) => {
+        if (isCancel(err)) reject(new Error('cancel'))
+        else reject(new Error((err && err.errMsg) || '选择失败'))
+      },
+    })
+  })
+}
+
+function chooseByMedia() {
+  return new Promise((resolve, reject) => {
+    uni.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album'],
+      success: (res) => {
+        const f = res.tempFiles && res.tempFiles[0]
+        const path = (f && (f.tempFilePath || f.path)) || ''
+        if (!path) {
+          reject(new Error('未选择图片'))
+          return
+        }
+        resolve(path)
+      },
+      fail: (err) => {
+        if (isCancel(err)) reject(new Error('cancel'))
+        else reject(err || new Error('选择失败'))
+      },
+    })
+  })
 }
 
 export function pickImage() {
-  return requirePrivacy().then(
-    () =>
-      new Promise((resolve, reject) => {
-        const done = (path) => {
-          if (!path) {
-            reject(new Error('未选择图片'))
-            return
-          }
-          resolve(path)
+  return requirePrivacy().then(async () => {
+    // 优先 chooseImage，兼容性更好；失败再尝试 chooseMedia
+    try {
+      return await chooseByImage()
+    } catch (e) {
+      if (e && e.message === 'cancel') throw e
+      if (typeof uni.chooseMedia !== 'function') throw e
+      try {
+        return await chooseByMedia()
+      } catch (e2) {
+        if (isCancel(e2) || (e2 && e2.message === 'cancel')) {
+          throw new Error('cancel')
         }
-        if (typeof uni.chooseMedia === 'function') {
-          uni.chooseMedia({
-            count: 1,
-            mediaType: ['image'],
-            sourceType: ['album'],
-            success: (res) => {
-              const f = res.tempFiles && res.tempFiles[0]
-              done((f && (f.tempFilePath || f.path)) || '')
-            },
-            fail: (err) => pickFail(err, reject),
-          })
-          return
-        }
-        uni.chooseImage({
-          count: 1,
-          sizeType: ['original'],
-          sourceType: ['album'],
-          success: (res) => done((res.tempFilePaths && res.tempFilePaths[0]) || ''),
-          fail: (err) => pickFail(err, reject),
-        })
-      })
-  )
+        throw new Error((e2 && (e2.errMsg || e2.message)) || (e && e.message) || '选择失败')
+      }
+    }
+  })
 }
 
 function h5Draw(src, mime, quality, maxEdge) {

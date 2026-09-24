@@ -38,6 +38,7 @@
 import { computed, ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { load, save, uid } from '../../utils/store.js'
+import { ensureSafeMsg } from '../../utils/secCheck.js'
 
 const KEY = 'tools_todo_v1'
 const list = ref([])
@@ -83,12 +84,13 @@ function setFilter(id) {
   filter.value = id
 }
 
-function add() {
+async function add() {
   const text = draft.value.trim()
   if (!text) {
     uni.showToast({ title: '先写点内容', icon: 'none' })
     return
   }
+  if (!(await ensureSafeMsg(text))) return
   list.value.unshift({ id: uid(), text, done: false })
   draft.value = ''
   persist()

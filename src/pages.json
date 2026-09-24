@@ -25,12 +25,6 @@
       }
     },
     {
-      "path": "pages/calendar/calendar",
-      "style": {
-        "navigationBarTitleText": "日历"
-      }
-    },
-    {
       "path": "pages/convert/convert",
       "style": {
         "navigationBarTitleText": "单位换算"
@@ -46,6 +40,18 @@
       "path": "pages/format/format",
       "style": {
         "navigationBarTitleText": "格式转换"
+      }
+    },
+    {
+      "path": "pages/qr/qr",
+      "style": {
+        "navigationBarTitleText": "二维码"
+      }
+    },
+    {
+      "path": "pages/seccheck/seccheck",
+      "style": {
+        "navigationBarTitleText": "内容安全检测"
       }
     },
     {

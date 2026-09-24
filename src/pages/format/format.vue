@@ -67,6 +67,7 @@ import { computed, ref } from 'vue'
 import { onHide } from '@dcloudio/uni-app'
 import { pad2 } from '../../utils/fmt.js'
 import { pickImage, convertImage, saveOrDownload, fmtSize } from '../../utils/image.js'
+import { ensureSafeImg } from '../../utils/secCheck.js'
 
 const tabs = [
   { id: 'img', name: '图片' },
@@ -93,11 +94,17 @@ const imgOutHint = computed(() => {
 
 async function chooseImg() {
   try {
-    imgSrc.value = await pickImage()
+    const path = await pickImage()
+    imgSrc.value = path
     imgOut.value = ''
+    const ok = await ensureSafeImg(path)
+    if (!ok) {
+      imgSrc.value = ''
+    }
   } catch (e) {
     if (e && e.message === 'cancel') return
-    uni.showToast({ title: (e && e.message) || '选择失败', icon: 'none' })
+    const tip = String((e && e.message) || '选择失败')
+    uni.showToast({ title: tip.length > 40 ? '选择失败，请重试' : tip, icon: 'none' })
   }
 }
 
@@ -110,9 +117,9 @@ async function toImg(mime) {
     imgOut.value = r.path
     imgOutSize.value = r.size
     imgMime.value = mime
-    uni.hideLoading()
+    setTimeout(() => uni.hideLoading(), 50)
   } catch (e) {
-    uni.hideLoading()
+    setTimeout(() => uni.hideLoading(), 50)
     uni.showToast({ title: (e && e.message) || '转换失败', icon: 'none' })
   } finally {
     imgBusy.value = false
