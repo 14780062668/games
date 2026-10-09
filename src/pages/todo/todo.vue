@@ -39,6 +39,9 @@ import { computed, ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { load, save, uid } from '../../utils/store.js'
 import { ensureSafeMsg } from '../../utils/secCheck.js'
+import { useShare } from '../../utils/share.js'
+
+useShare('待办', '/pages/todo/todo')
 
 const KEY = 'tools_todo_v1'
 const list = ref([])
@@ -73,7 +76,7 @@ function reload() {
 onShow(reload)
 
 function persist() {
-  save(KEY, list.value)
+  return save(KEY, list.value)
 }
 
 function onDraft(e) {
@@ -91,16 +94,20 @@ async function add() {
     return
   }
   if (!(await ensureSafeMsg(text))) return
-  list.value.unshift({ id: uid(), text, done: false })
+  const item = { id: uid(), text, done: false }
+  list.value.unshift(item)
+  if (!persist()) {
+    list.value.shift()
+    return
+  }
   draft.value = ''
-  persist()
 }
 
 function toggle(id) {
   const it = list.value.find((x) => x.id === id)
   if (!it) return
   it.done = !it.done
-  persist()
+  if (!persist()) it.done = !it.done
 }
 
 function remove(id) {
@@ -108,8 +115,9 @@ function remove(id) {
     title: '删除这条待办？',
     success: (r) => {
       if (!r.confirm) return
+      const prev = list.value
       list.value = list.value.filter((x) => x.id !== id)
-      persist()
+      if (!persist()) list.value = prev
     },
   })
 }
@@ -126,20 +134,22 @@ function remove(id) {
 }
 .inp {
   flex: 1;
-  height: 84rpx;
-  background: #fffcf8;
-  border-radius: 20rpx;
+  height: 88rpx;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
+  border-radius: 22rpx;
   padding: 0 24rpx;
   font-size: 28rpx;
+  box-shadow: 0 8rpx 20rpx rgba(70, 48, 20, 0.04);
 }
 .go {
-  width: 128rpx;
-  height: 84rpx;
-  line-height: 84rpx;
+  width: 132rpx;
+  height: 88rpx;
+  line-height: 88rpx;
   text-align: center;
   background: #3d6ea8;
   color: #fff;
-  border-radius: 20rpx;
+  border-radius: 22rpx;
   font-size: 28rpx;
   font-weight: 600;
 }
@@ -148,16 +158,24 @@ function remove(id) {
 }
 .filters {
   display: flex;
-  margin-bottom: 20rpx;
+  background: #e6dfd3;
+  border-radius: 16rpx;
+  padding: 6rpx;
+  margin-bottom: 22rpx;
 }
 .f {
-  margin-right: 28rpx;
+  flex: 1;
+  text-align: center;
+  padding: 14rpx 0;
+  border-radius: 12rpx;
   font-size: 26rpx;
-  color: #8a8278;
+  color: #8a8176;
 }
 .f.on {
-  color: #1f1b16;
-  font-weight: 700;
+  background: #fffdf9;
+  color: #1c1915;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(70, 48, 20, 0.06);
 }
 .empty {
   text-align: center;
@@ -166,12 +184,14 @@ function remove(id) {
   font-size: 26rpx;
 }
 .item {
-  background: #fffcf8;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.05);
   border-radius: 22rpx;
   padding: 24rpx;
   margin-bottom: 14rpx;
   display: flex;
   align-items: center;
+  box-shadow: 0 8rpx 20rpx rgba(70, 48, 20, 0.04);
 }
 .check {
   width: 40rpx;

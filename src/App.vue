@@ -4,7 +4,6 @@
 
 <script setup>
 import { onLaunch, onShow } from '@dcloudio/uni-app'
-import { setPrivacyResolve } from './utils/privacy.js'
 import { initCloud } from './utils/secCheck.js'
 
 onLaunch(() => {
@@ -12,22 +11,8 @@ onLaunch(() => {
   try {
     initCloud()
   } catch (e) {}
-  if (typeof wx !== 'undefined' && wx.onNeedPrivacyAuthorization) {
-    wx.onNeedPrivacyAuthorization((resolve) => {
-      setPrivacyResolve(resolve)
-      const o = Object.create(null)
-      o.url = '/pages/privacy/privacy?need=1'
-      uni.navigateTo({
-        url: o.url,
-        fail: () => {
-          // 跳转失败时直接同意，避免卡死白屏
-          try {
-            resolve({ event: 'agree', buttonId: 'agree-btn' })
-          } catch (e) {}
-        },
-      })
-    })
-  }
+  // 不在这里跳隐私页。跳转完不回调的话，微信会用蒙层把页面盖成白屏。
+  // 选图前走 requirePrivacyAuthorize，由官方弹窗完成同意。
   // #endif
 })
 
@@ -37,20 +22,32 @@ onShow(() => {})
 <style>
 page {
   height: 100%;
-  background: #f3efe8;
-  color: #1f1b16;
+  background: #ebe4d8;
+  color: #1c1915;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', sans-serif;
+}
+
+view,
+text,
+input,
+textarea,
+button,
+image {
+  box-sizing: border-box;
 }
 
 /* #ifdef H5 */
 html,
 body {
-  background: #f3efe8;
+  background: #d8d0c4;
 }
 uni-page-body {
   max-width: 430px;
+  min-height: 100%;
   margin: 0 auto;
+  background: #ebe4d8;
+  box-shadow: 0 0 48px rgba(60, 40, 16, 0.12);
 }
 /* #endif */
 

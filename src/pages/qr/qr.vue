@@ -14,24 +14,32 @@
     <view v-if="img" class="card">
       <image class="preview" :src="img" mode="aspectFit" />
       <view class="btn solid" hover-class="btn-hover" @tap="save">保存到相册</view>
+      <!-- #ifdef MP-WEIXIN -->
+      <button class="btn solid share" open-type="share" hover-class="btn-hover">转发给朋友</button>
+      <!-- #endif -->
     </view>
     <canvas type="2d" id="qrCanvas" class="offscreen" />
   </view>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
 import { onHide } from '@dcloudio/uni-app'
 import { saveOrDownload } from '../../utils/image.js'
 import { renderQr } from '../../utils/qr.js'
 import { ensureSafeMsg } from '../../utils/secCheck.js'
+import { useShare } from '../../utils/share.js'
 
 const text = ref('')
 const img = ref('')
 const busy = ref(false)
+const inst = getCurrentInstance()
+const proxy = inst && inst.proxy
+
+useShare('二维码生成', '/pages/qr/qr', () => img.value)
 
 function hideLoading() {
-  setTimeout(() => uni.hideLoading(), 50)
+  uni.hideLoading()
 }
 
 onHide(() => {
@@ -57,7 +65,7 @@ async function run() {
     // #ifndef H5
     uni.showLoading({ title: '生成中', mask: true })
     // #endif
-    img.value = await renderQr(raw)
+    img.value = await renderQr(raw, proxy)
     // #ifndef H5
     hideLoading()
     // #endif
@@ -82,10 +90,12 @@ function save() {
   padding: 24rpx 28rpx 80rpx;
 }
 .card {
-  background: #fffcf8;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
   border-radius: 28rpx;
   padding: 28rpx;
   margin-bottom: 24rpx;
+  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
 }
 .lab {
   display: block;
@@ -96,19 +106,19 @@ function save() {
 .area {
   width: 100%;
   height: 200rpx;
-  background: #f3efe8;
+  background: #f4efe6;
   border-radius: 16rpx;
   padding: 20rpx;
-  box-sizing: border-box;
   font-size: 28rpx;
-  color: #1f1b16;
+  color: #1c1915;
 }
 .preview {
   width: 100%;
   height: 520rpx;
   background: #ffffff;
-  border-radius: 16rpx;
+  border-radius: 20rpx;
   margin-bottom: 20rpx;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
 }
 .btn {
   height: 80rpx;
@@ -125,6 +135,10 @@ function save() {
 }
 .btn-hover {
   opacity: 0.85;
+}
+.share {
+  width: 100%;
+  margin-top: 16rpx;
 }
 .offscreen {
   position: fixed;

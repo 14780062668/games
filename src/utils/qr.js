@@ -63,19 +63,33 @@ function drawH5(qr) {
   return canvas.toDataURL('image/png')
 }
 
-function drawMp(qr) {
+function drawMp(qr, proxy) {
   const cell = 8
   const margin = 4
   const size = (qr.getModuleCount() + margin * 2) * cell
   return new Promise((resolve, reject) => {
-    uni
-      .createSelectorQuery()
+    let done = false
+    const fail = (err) => {
+      if (done) return
+      done = true
+      reject(err)
+    }
+    const ok = (val) => {
+      if (done) return
+      done = true
+      resolve(val)
+    }
+    const timer = setTimeout(() => fail(new Error('画布未就绪')), 12000)
+    const query = uni.createSelectorQuery()
+    if (proxy) query.in(proxy)
+    query
       .select('#qrCanvas')
       .fields({ node: true, size: true })
       .exec((res) => {
         const node = res && res[0] && res[0].node
         if (!node) {
-          reject(new Error('画布未就绪'))
+          clearTimeout(timer)
+          fail(new Error('画布未就绪'))
           return
         }
         const ctx = node.getContext('2d')
@@ -85,19 +99,27 @@ function drawMp(qr) {
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
         paint(ctx, qr, cell, margin, size)
         setTimeout(() => {
-          uni.canvasToTempFilePath({
+          const opt = {
             canvas: node,
             fileType: 'png',
-            success: (r) => resolve(r.tempFilePath),
-            fail: () => reject(new Error('导出失败')),
-          })
+            success: (r) => {
+              clearTimeout(timer)
+              ok(r.tempFilePath)
+            },
+            fail: () => {
+              clearTimeout(timer)
+              fail(new Error('导出失败'))
+            },
+          }
+          if (proxy) uni.canvasToTempFilePath(opt, proxy)
+          else uni.canvasToTempFilePath(opt)
         }, 30)
       })
   })
 }
 
 /** 本地生成二维码图片路径或 dataURL */
-export async function renderQr(text) {
+export async function renderQr(text, proxy) {
   let qr
   try {
     qr = makeQr(String(text || ''))
@@ -105,5 +127,5 @@ export async function renderQr(text) {
     throw new Error('内容过长，请缩短')
   }
   if (isH5()) return drawH5(qr)
-  return drawMp(qr)
+  return drawMp(qr, proxy)
 }

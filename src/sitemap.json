@@ -2,6 +2,14 @@
   "desc": "随身工具",
   "rules": [
     {
+      "action": "disallow",
+      "page": "pages/seccheck/seccheck"
+    },
+    {
+      "action": "disallow",
+      "page": "pages/privacy/privacy"
+    },
+    {
       "action": "allow",
       "page": "*"
     }

@@ -63,11 +63,14 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
-import { onHide } from '@dcloudio/uni-app'
+import { computed, getCurrentInstance, ref } from 'vue'
+import { onHide, onLoad } from '@dcloudio/uni-app'
 import { pad2 } from '../../utils/fmt.js'
 import { pickImage, convertImage, saveOrDownload, fmtSize } from '../../utils/image.js'
 import { ensureSafeImg } from '../../utils/secCheck.js'
+import { useShare } from '../../utils/share.js'
+
+useShare('时间戳转换', '/pages/format/format?tab=time')
 
 const tabs = [
   { id: 'img', name: '图片' },
@@ -75,7 +78,12 @@ const tabs = [
   { id: 'color', name: '颜色' },
   { id: 'json', name: 'JSON' },
 ]
-const tab = ref('img')
+const tab = ref('time')
+
+onLoad((q) => {
+  const t = q && q.tab
+  if (t === 'img' || t === 'time' || t === 'color' || t === 'json') tab.value = t
+})
 
 function setTab(id) {
   tab.value = id
@@ -86,6 +94,8 @@ const imgOut = ref('')
 const imgOutSize = ref(0)
 const imgMime = ref('image/jpeg')
 const imgBusy = ref(false)
+const inst = getCurrentInstance()
+const proxy = inst && inst.proxy
 const imgOutHint = computed(() => {
   if (!imgOut.value) return ''
   const name = imgMime.value === 'image/png' ? 'PNG' : 'JPG'
@@ -103,8 +113,7 @@ async function chooseImg() {
     }
   } catch (e) {
     if (e && e.message === 'cancel') return
-    const tip = String((e && e.message) || '选择失败')
-    uni.showToast({ title: tip.length > 40 ? '选择失败，请重试' : tip, icon: 'none' })
+    uni.showToast({ title: (e && e.message) || '选择失败', icon: 'none' })
   }
 }
 
@@ -113,13 +122,13 @@ async function toImg(mime) {
   imgBusy.value = true
   uni.showLoading({ title: '转换中', mask: true })
   try {
-    const r = await convertImage(imgSrc.value, mime)
+    const r = await convertImage(imgSrc.value, mime, proxy)
     imgOut.value = r.path
     imgOutSize.value = r.size
     imgMime.value = mime
-    setTimeout(() => uni.hideLoading(), 50)
+    uni.hideLoading()
   } catch (e) {
-    setTimeout(() => uni.hideLoading(), 50)
+    uni.hideLoading()
     uni.showToast({ title: (e && e.message) || '转换失败', icon: 'none' })
   } finally {
     imgBusy.value = false
@@ -285,7 +294,7 @@ function jsonFmt(pretty) {
 }
 .tabs {
   display: flex;
-  background: #efe8dc;
+  background: #e6dfd3;
   border-radius: 16rpx;
   padding: 6rpx;
   margin-bottom: 20rpx;
@@ -299,14 +308,17 @@ function jsonFmt(pretty) {
   color: #8a8278;
 }
 .tab.on {
-  background: #fff;
-  color: #1f1b16;
+  background: #fffdf9;
+  color: #1c1915;
   font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(70, 48, 20, 0.06);
 }
 .card {
-  background: #fffcf8;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
   border-radius: 28rpx;
   padding: 28rpx;
+  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
 }
 .lab {
   display: block;
@@ -315,7 +327,7 @@ function jsonFmt(pretty) {
   margin-bottom: 12rpx;
 }
 .inp {
-  background: #f3efe8;
+  background: #f4efe6;
   border-radius: 16rpx;
   height: 80rpx;
   padding: 0 20rpx;
@@ -325,21 +337,22 @@ function jsonFmt(pretty) {
 .area {
   width: 100%;
   height: 360rpx;
-  background: #f3efe8;
+  background: #f4efe6;
   border-radius: 16rpx;
   padding: 20rpx;
   font-size: 26rpx;
-  box-sizing: border-box;
   margin-bottom: 16rpx;
 }
 .pick {
-  min-height: 220rpx;
-  background: #f3efe8;
-  border-radius: 16rpx;
+  min-height: 240rpx;
+  background: #f7f2ea;
+  border: 2rpx dashed #d4cbbd;
+  border-radius: 20rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 16rpx;
+  overflow: hidden;
 }
 .preview {
   width: 100%;
@@ -370,8 +383,8 @@ function jsonFmt(pretty) {
   margin-bottom: 16rpx;
 }
 .ghost {
-  background: #efe8dc;
-  color: #1f1b16;
+  background: #e6dfd3;
+  color: #1c1915;
 }
 .solid {
   background: #2f6f8a;
@@ -416,7 +429,7 @@ function jsonFmt(pretty) {
 .pickbox {
   height: 80rpx;
   line-height: 80rpx;
-  background: #f3efe8;
+  background: #f4efe6;
   border-radius: 16rpx;
   padding: 0 20rpx;
   font-size: 28rpx;

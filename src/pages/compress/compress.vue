@@ -4,7 +4,7 @@
       <image v-if="src" class="preview" :src="src" mode="aspectFit" />
       <view v-else class="ph">
         <text class="plus">＋</text>
-        <text>选择一张图片</text>
+        <text>点击从相册选择</text>
       </view>
     </view>
 
@@ -37,6 +37,9 @@
     <view v-if="out" class="card">
       <image class="preview sm" :src="out" mode="aspectFit" />
       <view class="btn solid" hover-class="btn-hover" @tap="save">保存图片</view>
+      <!-- #ifdef MP-WEIXIN -->
+      <button class="btn solid share" open-type="share" hover-class="btn-hover">转发给朋友</button>
+      <!-- #endif -->
     </view>
   </view>
 </template>
@@ -46,6 +49,9 @@ import { ref } from 'vue'
 import { onHide } from '@dcloudio/uni-app'
 import { pickImage, getFileSize, compressToJpeg, saveOrDownload, fmtSize } from '../../utils/image.js'
 import { ensureSafeImg } from '../../utils/secCheck.js'
+import { useShare } from '../../utils/share.js'
+
+useShare('图片压缩', '/pages/compress/compress', () => out.value)
 
 const src = ref('')
 const originSize = ref(0)
@@ -55,7 +61,7 @@ const outSize = ref(0)
 const busy = ref(false)
 
 function hideLoading() {
-  setTimeout(() => uni.hideLoading(), 50)
+  uni.hideLoading()
 }
 
 onHide(() => {
@@ -81,8 +87,7 @@ async function choose() {
     }
   } catch (e) {
     if (e && e.message === 'cancel') return
-    const tip = String((e && e.message) || '选择失败')
-    uni.showToast({ title: tip.length > 40 ? '选择失败，请重试' : tip, icon: 'none' })
+    uni.showToast({ title: (e && e.message) || '选择失败', icon: 'none' })
   }
 }
 
@@ -119,10 +124,12 @@ function save() {
   padding: 24rpx 28rpx 80rpx;
 }
 .card {
-  background: #fffcf8;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
   border-radius: 28rpx;
   padding: 24rpx;
   margin-bottom: 24rpx;
+  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
 }
 .preview {
   width: 100%;
@@ -135,13 +142,16 @@ function save() {
   margin-bottom: 20rpx;
 }
 .ph {
-  height: 280rpx;
+  height: 300rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #8a8278;
+  color: #8a8176;
   font-size: 26rpx;
+  border: 2rpx dashed #b7aa96;
+  border-radius: 20rpx;
+  background: #f3eee4;
 }
 .plus {
   font-size: 56rpx;
@@ -170,8 +180,8 @@ function save() {
   font-weight: 600;
 }
 .ghost {
-  background: #efe8dc;
-  color: #1f1b16;
+  background: #e6dfd3;
+  color: #1c1915;
 }
 .solid {
   background: #5b4b8a;
@@ -179,5 +189,9 @@ function save() {
 }
 .btn-hover {
   opacity: 0.85;
+}
+.share {
+  width: 100%;
+  margin-top: 16rpx;
 }
 </style>

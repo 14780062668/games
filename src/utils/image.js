@@ -44,9 +44,19 @@ export function getFileSize(path) {
 
 import { requirePrivacy } from './privacy.js'
 
+function errText(err) {
+  return String((err && (err.errMsg || err.message)) || '')
+}
+
 function isCancel(err) {
-  const msg = (err && (err.errMsg || err.message)) || ''
-  return /cancel/i.test(msg)
+  return /cancel/i.test(errText(err))
+}
+
+function shortReason(err) {
+  const msg = errText(err)
+  if (/privacy agreement|scope is not declared/i.test(msg)) return '请补充相册隐私声明'
+  if (/privacy|not authorized|隐私/i.test(msg)) return '请先同意隐私协议'
+  return '选择失败'
 }
 
 function chooseByImage() {
@@ -94,24 +104,29 @@ function chooseByMedia() {
   })
 }
 
-export function pickImage() {
-  return requirePrivacy().then(async () => {
-    // 优先 chooseImage，兼容性更好；失败再尝试 chooseMedia
+async function chooseOnce() {
+  if (typeof uni.chooseImage === 'function') {
     try {
       return await chooseByImage()
     } catch (e) {
-      if (e && e.message === 'cancel') throw e
-      if (typeof uni.chooseMedia !== 'function') throw e
-      try {
-        return await chooseByMedia()
-      } catch (e2) {
-        if (isCancel(e2) || (e2 && e2.message === 'cancel')) {
-          throw new Error('cancel')
-        }
-        throw new Error((e2 && (e2.errMsg || e2.message)) || (e && e.message) || '选择失败')
+      if (isCancel(e) || (e && e.message === 'cancel')) throw new Error('cancel')
+      // 接口不存在才换 chooseMedia，其它失败直接告诉用户
+      if (typeof uni.chooseMedia !== 'function' || !/not support|不支持/i.test(errText(e))) {
+        throw new Error(shortReason(e))
       }
     }
-  })
+  }
+  try {
+    return await chooseByMedia()
+  } catch (e) {
+    if (isCancel(e) || (e && e.message === 'cancel')) throw new Error('cancel')
+    throw new Error(shortReason(e))
+  }
+}
+
+export function pickImage() {
+  // 先完成隐私同意再选图。未同意就调选图会失败，审核会当成页面无法使用
+  return requirePrivacy().then(() => chooseOnce())
 }
 
 function h5Draw(src, mime, quality, maxEdge) {
@@ -177,7 +192,7 @@ export function compressToJpeg(src, quality) {
   })
 }
 
-export function convertImage(src, mime) {
+export function convertImage(src, mime, proxy) {
   if (isH5()) {
     const q = mime === 'image/jpeg' ? 0.92 : 0.92
     return h5Draw(src, mime, q, 4096).then((path) =>
@@ -186,14 +201,28 @@ export function convertImage(src, mime) {
   }
   // 小程序无直接转 PNG，用压缩近似 JPEG；PNG 走 canvas
   return new Promise((resolve, reject) => {
+    let done = false
+    const fail = (err) => {
+      if (done) return
+      done = true
+      reject(err)
+    }
+    const ok = (val) => {
+      if (done) return
+      done = true
+      resolve(val)
+    }
+    const timer = setTimeout(() => fail(new Error('画布未就绪')), 12000)
     const query = uni.createSelectorQuery()
+    if (proxy) query.in(proxy)
     query
       .select('#fmtCanvas')
       .fields({ node: true, size: true })
       .exec((res) => {
         const node = res && res[0] && res[0].node
         if (!node) {
-          reject(new Error('画布未就绪'))
+          clearTimeout(timer)
+          fail(new Error('画布未就绪'))
           return
         }
         const ctx = node.getContext('2d')
@@ -216,19 +245,26 @@ export function convertImage(src, mime) {
             ctx.clearRect(0, 0, w, h)
           }
           ctx.drawImage(img, 0, 0, w, h)
-          uni.canvasToTempFilePath({
+          const opt = {
             canvas: node,
             fileType: mime === 'image/png' ? 'png' : 'jpg',
             quality: 0.92,
             success: (r) => {
-              getFileSize(r.tempFilePath).then((size) =>
-                resolve({ path: r.tempFilePath, size })
-              )
+              clearTimeout(timer)
+              getFileSize(r.tempFilePath).then((size) => ok({ path: r.tempFilePath, size }))
             },
-            fail: () => reject(new Error('导出失败')),
-          })
+            fail: () => {
+              clearTimeout(timer)
+              fail(new Error('导出失败'))
+            },
+          }
+          if (proxy) uni.canvasToTempFilePath(opt, proxy)
+          else uni.canvasToTempFilePath(opt)
         }
-        img.onerror = () => reject(new Error('图片读取失败'))
+        img.onerror = () => {
+          clearTimeout(timer)
+          fail(new Error('图片读取失败'))
+        }
         img.src = src
       })
   })

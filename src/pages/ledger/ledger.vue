@@ -75,11 +75,14 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref } from 'vue'
+import { computed, nextTick, reactive, ref } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { load, save, uid } from '../../utils/store.js'
 import { pad2 } from '../../utils/fmt.js'
 import { ensureSafeMsg } from '../../utils/secCheck.js'
+import { useShare } from '../../utils/share.js'
+
+useShare('记账', '/pages/ledger/ledger')
 
 const KEY = 'tools_ledger_v1'
 const OUT = ['餐饮', '交通', '购物', '住房', '娱乐', '医疗', '其他']
@@ -92,13 +95,13 @@ function todayStr() {
   return t.getFullYear() + '-' + pad2(t.getMonth() + 1) + '-' + pad2(t.getDate())
 }
 
-const today = todayStr()
+const today = ref(todayStr())
 const form = reactive({
   type: 'out',
   cate: '餐饮',
   amount: '',
   note: '',
-  date: today,
+  date: today.value,
 })
 
 const cates = computed(() => (form.type === 'in' ? IN : OUT))
@@ -134,7 +137,7 @@ function money(n) {
 }
 
 function sumMonth(type) {
-  const prefix = today.slice(0, 7)
+  const prefix = today.value.slice(0, 7)
   let s = 0
   for (const it of list.value) {
     if (it.type === type && String(it.date).slice(0, 7) === prefix) s += it.amount
@@ -149,13 +152,25 @@ function reload() {
     : []
 }
 
-onShow(reload)
+onShow(() => {
+  today.value = todayStr()
+  if (form.date > today.value) form.date = today.value
+  reload()
+})
 
 function onAmount(e) {
-  let v = String(e.detail.value || '').replace(/[^\d.]/g, '')
+  const raw = String(e.detail.value || '')
+  let v = raw.replace(/[^\d.]/g, '')
   const i = v.indexOf('.')
   if (i >= 0) v = v.slice(0, i + 1) + v.slice(i + 1).replace(/\./g, '').slice(0, 2)
   if (v.length > 1 && v[0] === '0' && v[1] !== '.') v = String(Number(v))
+  if (raw !== v) {
+    form.amount = raw
+    nextTick(() => {
+      form.amount = v
+    })
+    return
+  }
   form.amount = v
 }
 
@@ -175,7 +190,7 @@ function setCate(c) {
 
 function onDate(e) {
   const v = e.detail.value
-  if (v && v <= today) form.date = v
+  if (v && v <= today.value) form.date = v
 }
 
 async function add() {
@@ -191,16 +206,20 @@ async function add() {
   const note = form.note.trim()
   if (note && !(await ensureSafeMsg(note))) return
   const cate = cates.value.includes(form.cate) ? form.cate : cates.value[0]
-  const date = form.date && form.date <= today ? form.date : today
-  list.value.unshift({
+  const date = form.date && form.date <= today.value ? form.date : today.value
+  const item = {
     id: uid(),
     type: form.type === 'in' ? 'in' : 'out',
     amount: amt,
     cate,
     note,
     date,
-  })
-  save(KEY, list.value)
+  }
+  list.value.unshift(item)
+  if (!save(KEY, list.value)) {
+    list.value.shift()
+    return
+  }
   form.amount = ''
   form.note = ''
   uni.showToast({ title: '已记下', icon: 'none' })
@@ -211,8 +230,9 @@ function remove(id) {
     title: '删除这笔记录？',
     success: (r) => {
       if (!r.confirm) return
+      const prev = list.value
       list.value = list.value.filter((x) => x.id !== id)
-      save(KEY, list.value)
+      if (!save(KEY, list.value)) list.value = prev
     },
   })
 }
@@ -224,31 +244,40 @@ function remove(id) {
 }
 .sum {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  background: linear-gradient(155deg, #2c261f 0%, #1c1915 70%, #24312d 100%);
+  border-radius: 32rpx;
+  padding: 32rpx 8rpx 28rpx;
   margin-bottom: 24rpx;
 }
 .cell {
-  width: 48%;
-  background: #fffcf8;
-  border-radius: 24rpx;
-  padding: 24rpx;
-  margin-bottom: 16rpx;
-  box-sizing: border-box;
+  width: 33.33%;
+  padding: 0 16rpx;
+  border-right: 1rpx solid rgba(246, 239, 228, 0.12);
+}
+.cell:last-child {
+  border-right: none;
 }
 .wide {
-  width: 100%;
+  width: 33.33%;
 }
 .lab {
   display: block;
   font-size: 22rpx;
-  color: #8a8278;
+  color: rgba(246, 239, 228, 0.55);
 }
 .val {
   display: block;
-  margin-top: 8rpx;
-  font-size: 40rpx;
+  margin-top: 10rpx;
+  font-size: 34rpx;
   font-weight: 700;
+  color: #f6efe4;
+  word-break: break-all;
+}
+.sum .in {
+  color: #8ee0d4;
+}
+.sum .out {
+  color: #f3b2a6;
 }
 .in {
   color: #0f7a6c;
@@ -257,14 +286,16 @@ function remove(id) {
   color: #c45c4a;
 }
 .card {
-  background: #fffcf8;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
   border-radius: 28rpx;
   padding: 28rpx;
-  margin-bottom: 32rpx;
+  margin-bottom: 28rpx;
+  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
 }
 .tabs {
   display: flex;
-  background: #efe8dc;
+  background: #e6dfd3;
   border-radius: 16rpx;
   padding: 6rpx;
   margin-bottom: 20rpx;
@@ -278,9 +309,10 @@ function remove(id) {
   color: #8a8278;
 }
 .tab.on {
-  background: #fff;
-  color: #1f1b16;
+  background: #fffdf9;
+  color: #1c1915;
   font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(70, 48, 20, 0.06);
 }
 .cates {
   display: flex;
@@ -288,8 +320,8 @@ function remove(id) {
   margin-bottom: 16rpx;
 }
 .chip {
-  padding: 10rpx 20rpx;
-  background: #efe8dc;
+  padding: 10rpx 22rpx;
+  background: #e6dfd3;
   border-radius: 999rpx;
   font-size: 24rpx;
   color: #5c564e;
@@ -307,12 +339,11 @@ function remove(id) {
 .inp,
 .date,
 .note {
-  background: #f3efe8;
+  background: #f4efe6;
   border-radius: 16rpx;
-  height: 76rpx;
+  height: 80rpx;
   padding: 0 20rpx;
   font-size: 28rpx;
-  box-sizing: border-box;
 }
 .inp {
   flex: 1;
@@ -360,12 +391,14 @@ function remove(id) {
   font-size: 22rpx;
 }
 .item {
-  background: #fffcf8;
-  border-radius: 20rpx;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.05);
+  border-radius: 22rpx;
   padding: 24rpx;
   margin-bottom: 12rpx;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .cate {
   display: block;

@@ -127,10 +127,12 @@ async function runMedia() {
   line-height: 1.5;
 }
 .card {
-  background: #fffcf8;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
   border-radius: 28rpx;
   padding: 28rpx;
   margin-bottom: 24rpx;
+  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
 }
 .lab {
   display: block;
@@ -140,7 +142,7 @@ async function runMedia() {
   font-weight: 600;
 }
 .inp {
-  background: #f3efe8;
+  background: #f4efe6;
   border-radius: 16rpx;
   height: 80rpx;
   padding: 0 20rpx;
@@ -159,8 +161,8 @@ async function runMedia() {
   margin-top: 12rpx;
 }
 .btn.ghost {
-  background: #efe8dc;
-  color: #1f1b16;
+  background: #e6dfd3;
+  color: #1c1915;
 }
 .row {
   display: flex;
@@ -183,7 +185,7 @@ async function runMedia() {
   font-size: 22rpx;
   line-height: 1.5;
   color: #1f1b16;
-  background: #f3efe8;
+  background: #f4efe6;
   padding: 20rpx;
   border-radius: 12rpx;
 }

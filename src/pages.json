@@ -7,6 +7,30 @@
       }
     },
     {
+      "path": "pages/compress/compress",
+      "style": {
+        "navigationBarTitleText": "图片压缩"
+      }
+    },
+    {
+      "path": "pages/qr/qr",
+      "style": {
+        "navigationBarTitleText": "二维码生成"
+      }
+    },
+    {
+      "path": "pages/convert/convert",
+      "style": {
+        "navigationBarTitleText": "单位换算"
+      }
+    },
+    {
+      "path": "pages/format/format",
+      "style": {
+        "navigationBarTitleText": "时间戳转换"
+      }
+    },
+    {
       "path": "pages/calc/calc",
       "style": {
         "navigationBarTitleText": "计算器"
@@ -22,30 +46,6 @@
       "path": "pages/todo/todo",
       "style": {
         "navigationBarTitleText": "待办"
-      }
-    },
-    {
-      "path": "pages/convert/convert",
-      "style": {
-        "navigationBarTitleText": "单位换算"
-      }
-    },
-    {
-      "path": "pages/compress/compress",
-      "style": {
-        "navigationBarTitleText": "图片压缩"
-      }
-    },
-    {
-      "path": "pages/format/format",
-      "style": {
-        "navigationBarTitleText": "格式转换"
-      }
-    },
-    {
-      "path": "pages/qr/qr",
-      "style": {
-        "navigationBarTitleText": "二维码"
       }
     },
     {
@@ -72,7 +72,7 @@
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "随身工具",
-    "navigationBarBackgroundColor": "#F3EFE8",
-    "backgroundColor": "#F3EFE8"
+    "navigationBarBackgroundColor": "#EBE4D8",
+    "backgroundColor": "#EBE4D8"
   }
 }

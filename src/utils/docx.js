@@ -1,5 +1,5 @@
 const PAGE_CSS =
-  'body{margin:0;padding:16px;background:#fff;color:#000;font-size:16px;line-height:1.75;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}p{margin:16px 0;}img{max-width:100%;height:auto;}table{border-collapse:collapse;width:100%;}td,th{border:1px solid #ccc;padding:6px;}'
+  'body{margin:0;padding:16px;background:#fff;color:#000;font-size:16px;line-height:1.75;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}p,li{margin:16px 0;}h1,h2,h3{margin:18px 0 8px;}img{max-width:100%;height:auto;}table{border-collapse:collapse;width:100%;}td,th{border:1px solid #ccc;padding:6px;}'
 
 function esc(s) {
   return String(s)
@@ -42,9 +42,10 @@ function pStyle(el) {
 
 function toArticle(root) {
   const parts = []
-  const blocks = root.querySelectorAll('p, table, h1, h2, h3')
+  const blocks = root.querySelectorAll('p, table, h1, h2, h3, li')
   blocks.forEach((el) => {
     if (el.closest('table') && el.tagName !== 'TABLE') return
+    if (el.tagName === 'LI' && el.querySelector('p, h1, h2, h3')) return
     if (el.tagName === 'TABLE') {
       const clone = el.cloneNode(true)
       clone.querySelectorAll('[class]').forEach((n) => n.removeAttribute('class'))
@@ -56,7 +57,9 @@ function toArticle(root) {
       parts.push('<p> </p>')
       return
     }
-    parts.push('<p' + pStyle(el) + '>' + kids(el) + '</p>')
+    const tag = /^H[1-3]$/.test(el.tagName) ? el.tagName.toLowerCase() : 'p'
+    const style = tag === 'p' ? pStyle(el) : ''
+    parts.push('<' + tag + style + '>' + kids(el) + '</' + tag + '>')
   })
   return parts.join('\n')
 }

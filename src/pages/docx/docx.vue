@@ -75,7 +75,7 @@ async function run(name, buf) {
   } catch (e) {
     err.value = (e && e.message) || '转换失败，请确认文件是否为有效的 .docx'
   } finally {
-    setTimeout(() => uni.hideLoading(), 50)
+    uni.hideLoading()
     busy.value = false
   }
 }
@@ -163,15 +163,18 @@ function copyHtml() {
   padding: 24rpx 28rpx 80rpx;
 }
 .card {
-  background: #fffcf8;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
   border-radius: 28rpx;
   padding: 28rpx;
   margin-bottom: 24rpx;
+  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
 }
 .pick {
-  min-height: 180rpx;
-  background: #f3efe8;
-  border-radius: 16rpx;
+  min-height: 200rpx;
+  background: #f7f2ea;
+  border: 2rpx dashed #d4cbbd;
+  border-radius: 20rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,8 +204,8 @@ function copyHtml() {
   margin-top: 16rpx;
 }
 .ghost {
-  background: #efe8dc;
-  color: #1f1b16;
+  background: #e6dfd3;
+  color: #1c1915;
 }
 .solid {
   background: #6b4c7a;
@@ -244,7 +247,7 @@ function copyHtml() {
 .area {
   width: 100%;
   height: 320rpx;
-  background: #f3efe8;
+  background: #f4efe6;
   border-radius: 16rpx;
   padding: 20rpx;
   font-size: 22rpx;

@@ -34,6 +34,10 @@ function patchUniVue() {
 
 export default defineConfig({
   plugins: [patchUniVue(), uni()],
+  server: {
+    host: true,
+    port: 5173,
+  },
   optimizeDeps: {
     exclude: ['@dcloudio/uni-h5-vue', '@vue/shared'],
   },

@@ -21,6 +21,9 @@
 
 <script setup>
 import { computed, ref } from 'vue'
+import { useShare } from '../../utils/share.js'
+
+useShare('计算器', '/pages/calc/calc')
 
 const display = ref('0')
 const acc = ref(null)
@@ -140,7 +143,12 @@ function press(k) {
   if (k.act === 'pct') {
     const n = parseNum(display.value)
     if (!Number.isFinite(n)) return
-    display.value = formatNum(n / 100)
+    // 加减时，10% 表示当前被加数的百分之十，而不是 0.1
+    let v = n / 100
+    if (acc.value !== null && (op.value === '+' || op.value === '-') && !fresh.value) {
+      v = acc.value * (n / 100)
+    }
+    display.value = formatNum(v)
     fresh.value = true
     return
   }
@@ -178,6 +186,14 @@ function setOp(next) {
   }
   if (acc.value !== null && op.value && !fresh.value) {
     const r = compute(acc.value, op.value, cur)
+    if (!Number.isFinite(r)) {
+      display.value = '出错'
+      acc.value = null
+      op.value = null
+      fresh.value = true
+      expr.value = ''
+      return
+    }
     display.value = formatNum(r)
     acc.value = r
   } else {
@@ -203,21 +219,20 @@ function equals() {
 <style scoped>
 .page {
   min-height: 100%;
-  padding: 24rpx 28rpx 40rpx;
-  box-sizing: border-box;
+  padding: 20rpx 24rpx 32rpx;
   display: flex;
   flex-direction: column;
 }
 .screen {
-  background: #1f1b16;
-  border-radius: 32rpx;
-  padding: 36rpx 36rpx 28rpx;
-  min-height: 220rpx;
+  background: linear-gradient(160deg, #2a241e 0%, #1c1915 100%);
+  border-radius: 36rpx;
+  padding: 36rpx 36rpx 32rpx;
+  min-height: 240rpx;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
-  margin-bottom: 28rpx;
+  margin-bottom: 24rpx;
 }
 .expr {
   min-height: 40rpx;
@@ -239,25 +254,29 @@ function equals() {
   justify-content: space-between;
 }
 .key {
-  width: 23%;
-  height: 112rpx;
-  margin-bottom: 16rpx;
+  width: 23.2%;
+  height: 118rpx;
+  margin-bottom: 14rpx;
   border-radius: 28rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 40rpx;
-  background: #fffcf8;
-  color: #1f1b16;
-  box-shadow: 0 8rpx 20rpx rgba(80, 60, 30, 0.05);
+  font-weight: 600;
+  background: #fffdf9;
+  color: #1c1915;
+  border: 1rpx solid rgba(31, 27, 22, 0.05);
+  box-shadow: 0 8rpx 18rpx rgba(70, 48, 20, 0.05);
 }
 .key-hover {
-  opacity: 0.75;
+  opacity: 0.72;
+  transform: scale(0.97);
 }
 .fn {
-  background: #ebe4d8;
+  background: #e4dccf;
   color: #5c564e;
-  font-size: 34rpx;
+  font-size: 32rpx;
+  box-shadow: none;
 }
 .op {
   background: #0f7a6c;

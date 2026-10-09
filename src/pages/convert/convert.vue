@@ -20,7 +20,10 @@
         </picker>
         <input class="inp" :type="cat === 'temp' ? 'text' : 'digit'" :value="input" placeholder="输入数值" @input="onInput" />
       </view>
-      <view class="swap" @tap="swap">互换</view>
+      <view class="swap" hover-class="swap-hover" @tap="swap">
+        <text class="swap-ico">⇅</text>
+        <text>互换</text>
+      </view>
       <view class="field">
         <text class="lab">到</text>
         <picker :range="labels" :value="toIdx" @change="onTo">
@@ -34,7 +37,10 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
+import { useShare } from '../../utils/share.js'
+
+useShare('单位换算器', '/pages/convert/convert')
 
 const cats = [
   { id: 'len', name: '长度' },
@@ -150,6 +156,8 @@ const output = computed(() => {
   if (cat.value === 'temp') {
     const c = toC(n, a.k)
     if (a.k === 'K' && n < 0) return '开尔文不能为负'
+    // 低于 -273.15℃ 没有物理意义
+    if (!Number.isFinite(c) || c < -273.15) return '低于绝对零度'
     return pretty(fromC(c, b.k))
   }
   return pretty((n * a.k) / b.k)
@@ -181,16 +189,25 @@ function onInput(e) {
   }
   const i = v.indexOf('.')
   if (i >= 0) v = v.slice(0, i + 1) + v.slice(i + 1).replace(/\./g, '')
+  // 过滤后和原值相同，输入框不会刷新，先写入再改回
+  if (v === input.value && String(e.detail.value || '') !== v) {
+    input.value = v + ' '
+    nextTick(() => {
+      input.value = v
+    })
+    return
+  }
   input.value = v
 }
 
 function swap() {
+  const bad = ['无效数字', '不能为负', '开尔文不能为负', '低于绝对零度']
+  // 必须先记下结果。改了单位之后，计算结果会立刻跟着变
+  const prev = output.value
   const i = fromIdx.value
   fromIdx.value = toIdx.value
   toIdx.value = i
-  if (output.value && output.value !== '无效数字' && output.value !== '不能为负' && output.value !== '开尔文不能为负') {
-    input.value = output.value
-  }
+  if (prev && !bad.includes(prev)) input.value = prev
 }
 </script>
 
@@ -204,8 +221,8 @@ function swap() {
   margin-bottom: 20rpx;
 }
 .cat {
-  padding: 12rpx 22rpx;
-  background: #efe8dc;
+  padding: 12rpx 24rpx;
+  background: #e6dfd3;
   color: #5c564e;
   border-radius: 999rpx;
   font-size: 24rpx;
@@ -216,14 +233,16 @@ function swap() {
   color: #f6efe4;
 }
 .card {
-  background: #fffcf8;
-  border-radius: 28rpx;
+  background: #fffdf9;
+  border: 1rpx solid rgba(31, 27, 22, 0.06);
+  border-radius: 32rpx;
   padding: 28rpx;
+  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
 }
 .field {
-  background: #f3efe8;
-  border-radius: 20rpx;
-  padding: 20rpx 24rpx;
+  background: #f4efe6;
+  border-radius: 22rpx;
+  padding: 22rpx 24rpx 18rpx;
 }
 .lab {
   font-size: 22rpx;
@@ -248,10 +267,23 @@ function swap() {
   word-break: break-all;
 }
 .swap {
-  text-align: center;
-  padding: 22rpx 0;
-  color: #8a6a2f;
+  width: 168rpx;
+  margin: 18rpx auto;
+  height: 64rpx;
+  border-radius: 999rpx;
+  background: #1c1915;
+  color: #f6efe4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+}
+.swap-ico {
+  margin-right: 8rpx;
   font-size: 26rpx;
+}
+.swap-hover {
+  opacity: 0.82;
 }
 .tip {
   display: block;

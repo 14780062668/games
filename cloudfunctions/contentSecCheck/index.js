@@ -36,11 +36,15 @@ exports.main = async (event) => {
         return { ok: false, err: 'no_file', raw: null }
       }
       const dl = await cloud.downloadFile({ fileID })
+      const buf = Buffer.isBuffer(dl.fileContent) ? dl.fileContent : Buffer.from(dl.fileContent || [])
+      let contentType = 'image/jpeg'
+      if (buf[0] === 0x89 && buf[1] === 0x50) contentType = 'image/png'
+      else if (buf[0] === 0x47 && buf[1] === 0x49) contentType = 'image/gif'
       // 图片同步检测 imgSecCheck
       const raw = await cloud.openapi.security.imgSecCheck({
         media: {
-          contentType: 'image/jpeg',
-          value: dl.fileContent,
+          contentType,
+          value: buf,
         },
       })
       const errCode = raw && (raw.errCode != null ? raw.errCode : raw.errcode)
