@@ -36,7 +36,7 @@ const busy = ref(false)
 const inst = getCurrentInstance()
 const proxy = inst && inst.proxy
 
-useShare('二维码生成', '/pages/qr/qr', () => img.value)
+useShare('瘦图盒 · 二维码生成', '/pages/qr/qr', () => img.value)
 
 function hideLoading() {
   uni.hideLoading()
@@ -100,7 +100,7 @@ function save() {
 .lab {
   display: block;
   font-size: 24rpx;
-  color: #8a8278;
+  color: #8a8176;
   margin-bottom: 12rpx;
 }
 .area {

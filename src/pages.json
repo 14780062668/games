@@ -3,7 +3,7 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "随身工具"
+        "navigationBarTitleText": "瘦图盒"
       }
     },
     {
@@ -71,7 +71,7 @@
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "随身工具",
+    "navigationBarTitleText": "瘦图盒",
     "navigationBarBackgroundColor": "#EBE4D8",
     "backgroundColor": "#EBE4D8"
   }

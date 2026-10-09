@@ -41,7 +41,7 @@ import { load, save, uid } from '../../utils/store.js'
 import { ensureSafeMsg } from '../../utils/secCheck.js'
 import { useShare } from '../../utils/share.js'
 
-useShare('待办', '/pages/todo/todo')
+useShare('瘦图盒 · 待办', '/pages/todo/todo')
 
 const KEY = 'tools_todo_v1'
 const list = ref([])
@@ -179,7 +179,7 @@ function remove(id) {
 }
 .empty {
   text-align: center;
-  color: #8a8278;
+  color: #8a8176;
   padding: 80rpx 0;
   font-size: 26rpx;
 }

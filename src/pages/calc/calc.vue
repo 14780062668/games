@@ -23,7 +23,7 @@
 import { computed, ref } from 'vue'
 import { useShare } from '../../utils/share.js'
 
-useShare('计算器', '/pages/calc/calc')
+useShare('瘦图盒 · 计算器', '/pages/calc/calc')
 
 const display = ref('0')
 const acc = ref(null)

@@ -2,7 +2,7 @@
   <view class="page">
     <view class="card">
       <text class="h">用户隐私保护指引</text>
-      <text class="p">开发者：随身工具（AppID wx3dd141820c627a49）</text>
+      <text class="p">开发者：瘦图盒（AppID wx3dd141820c627a49）</text>
       <text class="p">本小程序为本地工具，数据默认只存在你的手机，不上传服务器。</text>
       <text class="h2">我们如何处理信息</text>
       <text class="p">1. 选中的照片和你输入的文字：照片用于本地压缩或格式转换，文字用于本地生成二维码；为内容安全合规，可能调用微信内容安全接口做检测。</text>

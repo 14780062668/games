@@ -51,7 +51,7 @@ import { pickImage, getFileSize, compressToJpeg, saveOrDownload, fmtSize } from 
 import { ensureSafeImg } from '../../utils/secCheck.js'
 import { useShare } from '../../utils/share.js'
 
-useShare('图片压缩', '/pages/compress/compress', () => out.value)
+useShare('瘦图盒 · 图片压缩', '/pages/compress/compress', () => out.value)
 
 const src = ref('')
 const originSize = ref(0)
@@ -163,7 +163,7 @@ function save() {
   justify-content: space-between;
   font-size: 26rpx;
   color: #5c564e;
-  margin-bottom: 8rpx;
+  margin-bottom: 10rpx;
 }
 .btns {
   display: flex;

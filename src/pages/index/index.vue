@@ -36,7 +36,7 @@
 import { computed } from 'vue'
 import { useShare } from '../../utils/share.js'
 
-useShare('图片压缩、二维码、单位换算', '/pages/index/index')
+useShare('瘦图盒 · 图片压缩、二维码、时间戳', '/pages/index/index')
 
 const dateText = computed(() => {
   const d = new Date()
@@ -48,7 +48,7 @@ const tools = [
   { name: '图片压缩', hint: '本地缩小照片体积', path: '/pages/compress/compress', mark: '图', bg: '#5b4b8a', fg: '#f1edfa' },
   { name: '二维码', hint: '文字链接生成二维码', path: '/pages/qr/qr', mark: '码', bg: '#a24b3a', fg: '#fbeeea' },
   { name: '单位换算', hint: '长度重量温度换算', path: '/pages/convert/convert', mark: '换', bg: '#8a6a2f', fg: '#f8f1e0' },
-  { name: '格式转换', hint: '时间戳·图片·颜色', path: '/pages/format/format?tab=time', mark: '转', bg: '#2f6f8a', fg: '#e7f4f8' },
+  { name: '时间戳', hint: '时间戳与日期互转', path: '/pages/format/format?tab=time', mark: '转', bg: '#2f6f8a', fg: '#e7f4f8' },
   { name: '计算器', hint: '精准四则运算', path: '/pages/calc/calc', mark: '算', bg: '#1f1b16', fg: '#f6efe4' },
   { name: '记账', hint: '收支一目了然', path: '/pages/ledger/ledger', mark: '账', bg: '#0f7a6c', fg: '#e9f7f4' },
   { name: '待办', hint: '把事记下来', path: '/pages/todo/todo', mark: '待', bg: '#3d6ea8', fg: '#eaf2fb' },

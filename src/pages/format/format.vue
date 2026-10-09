@@ -70,7 +70,7 @@ import { pickImage, convertImage, saveOrDownload, fmtSize } from '../../utils/im
 import { ensureSafeImg } from '../../utils/secCheck.js'
 import { useShare } from '../../utils/share.js'
 
-useShare('时间戳转换', '/pages/format/format?tab=time')
+useShare('瘦图盒 · 时间戳转换', '/pages/format/format?tab=time')
 
 const tabs = [
   { id: 'img', name: '图片' },
@@ -323,7 +323,7 @@ function jsonFmt(pretty) {
 .lab {
   display: block;
   font-size: 24rpx;
-  color: #8a8278;
+  color: #8a8176;
   margin-bottom: 12rpx;
 }
 .inp {
@@ -396,7 +396,7 @@ function jsonFmt(pretty) {
 .meta {
   display: block;
   font-size: 24rpx;
-  color: #8a8278;
+  color: #8a8176;
   margin-bottom: 12rpx;
 }
 .result {

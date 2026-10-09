@@ -82,7 +82,7 @@ import { pad2 } from '../../utils/fmt.js'
 import { ensureSafeMsg } from '../../utils/secCheck.js'
 import { useShare } from '../../utils/share.js'
 
-useShare('记账', '/pages/ledger/ledger')
+useShare('瘦图盒 · 记账', '/pages/ledger/ledger')
 
 const KEY = 'tools_ledger_v1'
 const OUT = ['餐饮', '交通', '购物', '住房', '娱乐', '医疗', '其他']
@@ -306,7 +306,7 @@ function remove(id) {
   padding: 14rpx 0;
   border-radius: 12rpx;
   font-size: 26rpx;
-  color: #8a8278;
+  color: #8a8176;
 }
 .tab.on {
   background: #fffdf9;
@@ -373,7 +373,7 @@ function remove(id) {
 }
 .empty {
   text-align: center;
-  color: #8a8278;
+  color: #8a8176;
   padding: 60rpx 0;
   font-size: 26rpx;
 }
@@ -384,7 +384,7 @@ function remove(id) {
   display: flex;
   justify-content: space-between;
   font-size: 24rpx;
-  color: #8a8278;
+  color: #8a8176;
   padding: 0 8rpx 12rpx;
 }
 .gsub {
@@ -409,7 +409,7 @@ function remove(id) {
   display: block;
   margin-top: 6rpx;
   font-size: 22rpx;
-  color: #8a8278;
+  color: #8a8176;
 }
 .right {
   text-align: right;

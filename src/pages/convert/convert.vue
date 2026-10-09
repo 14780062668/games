@@ -40,7 +40,7 @@
 import { computed, nextTick, ref } from 'vue'
 import { useShare } from '../../utils/share.js'
 
-useShare('单位换算器', '/pages/convert/convert')
+useShare('瘦图盒 · 单位换算', '/pages/convert/convert')
 
 const cats = [
   { id: 'len', name: '长度' },
@@ -246,7 +246,7 @@ function swap() {
 }
 .lab {
   font-size: 22rpx;
-  color: #8a8278;
+  color: #8a8176;
 }
 .pick {
   margin-top: 8rpx;
@@ -289,7 +289,7 @@ function swap() {
   display: block;
   margin-top: 20rpx;
   font-size: 22rpx;
-  color: #8a8278;
+  color: #8a8176;
   padding: 0 8rpx;
 }
 </style>
