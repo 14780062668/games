@@ -90,12 +90,12 @@ function save() {
   padding: 24rpx 28rpx 80rpx;
 }
 .card {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 28rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
   padding: 28rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .lab {
   display: block;
@@ -106,19 +106,19 @@ function save() {
 .area {
   width: 100%;
   height: 200rpx;
-  background: #f4efe6;
-  border-radius: 16rpx;
+  background: #f6f7f9;
+  border-radius: 12rpx;
   padding: 20rpx;
   font-size: 28rpx;
-  color: #1c1915;
+  color: #171a1d;
 }
 .preview {
   width: 100%;
   height: 520rpx;
   background: #ffffff;
-  border-radius: 20rpx;
+  border-radius: 16rpx;
   margin-bottom: 20rpx;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
+  border: 1rpx solid #ebedf0;
 }
 .btn {
   height: 80rpx;
@@ -130,8 +130,8 @@ function save() {
   margin-top: 20rpx;
 }
 .solid {
-  background: #a24b3a;
-  color: #fbeeea;
+  background: #07c160;
+  color: #ffffff;
 }
 .btn-hover {
   opacity: 0.85;

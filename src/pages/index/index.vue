@@ -45,15 +45,15 @@ const dateText = computed(() => {
 })
 
 const tools = [
-  { name: '图片压缩', hint: '本地缩小照片体积', path: '/pages/compress/compress', mark: '图', bg: '#5b4b8a', fg: '#f1edfa' },
-  { name: '二维码', hint: '文字链接生成二维码', path: '/pages/qr/qr', mark: '码', bg: '#a24b3a', fg: '#fbeeea' },
-  { name: '单位换算', hint: '长度重量温度换算', path: '/pages/convert/convert', mark: '换', bg: '#8a6a2f', fg: '#f8f1e0' },
-  { name: '时间戳', hint: '时间戳与日期互转', path: '/pages/format/format?tab=time', mark: '转', bg: '#2f6f8a', fg: '#e7f4f8' },
-  { name: '计算器', hint: '精准四则运算', path: '/pages/calc/calc', mark: '算', bg: '#1f1b16', fg: '#f6efe4' },
-  { name: '记账', hint: '收支一目了然', path: '/pages/ledger/ledger', mark: '账', bg: '#0f7a6c', fg: '#e9f7f4' },
-  { name: '待办', hint: '把事记下来', path: '/pages/todo/todo', mark: '待', bg: '#3d6ea8', fg: '#eaf2fb' },
+  { name: '图片压缩', hint: '本地缩小照片体积', path: '/pages/compress/compress', mark: '图', bg: '#e8f3ff', fg: '#0b6bcb' },
+  { name: '二维码', hint: '文字链接生成二维码', path: '/pages/qr/qr', mark: '码', bg: '#fff1e6', fg: '#c2410c' },
+  { name: '单位换算', hint: '长度重量温度换算', path: '/pages/convert/convert', mark: '换', bg: '#f3e8ff', fg: '#7c3aed' },
+  { name: '时间戳', hint: '时间戳与日期互转', path: '/pages/format/format?tab=time', mark: '转', bg: '#e6f9f0', fg: '#059669' },
+  { name: '计算器', hint: '精准四则运算', path: '/pages/calc/calc', mark: '算', bg: '#f1f2f4', fg: '#171a1d' },
+  { name: '记账', hint: '收支一目了然', path: '/pages/ledger/ledger', mark: '账', bg: '#e0f2f1', fg: '#0f766e' },
+  { name: '待办', hint: '把事记下来', path: '/pages/todo/todo', mark: '待', bg: '#e8f0fe', fg: '#1d4ed8' },
   // #ifdef H5
-  { name: 'Word转HTML', hint: 'docx 转网页', path: '/pages/docx/docx', mark: '文', bg: '#6b4c7a', fg: '#f8f1fa' },
+  { name: 'Word转HTML', hint: 'docx 转网页', path: '/pages/docx/docx', mark: '文', bg: '#fdf2f8', fg: '#be185d' },
   // #endif
 ]
 
@@ -66,57 +66,56 @@ function go(url) {
 
 <style scoped>
 .home {
-  padding: 16rpx 24rpx 64rpx;
+  padding: 20rpx 28rpx 64rpx;
 }
 .hero {
-  background: linear-gradient(145deg, #2a241e 0%, #1c1915 55%, #1a2824 100%);
-  border-radius: 32rpx;
-  padding: 32rpx 32rpx 28rpx;
-  margin-bottom: 32rpx;
-  box-shadow: 0 16rpx 40rpx rgba(28, 25, 21, 0.18);
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 28rpx 28rpx 24rpx;
+  margin-bottom: 28rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
 }
 .date {
   display: block;
-  font-size: 34rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #f6efe4;
-  letter-spacing: 1rpx;
+  color: #171a1d;
+  letter-spacing: 0;
 }
 .tag {
   display: flex;
   align-items: center;
-  margin-top: 16rpx;
-  padding: 10rpx 18rpx;
+  margin-top: 14rpx;
+  padding: 8rpx 16rpx;
   width: fit-content;
   max-width: 100%;
-  background: rgba(246, 239, 228, 0.1);
+  background: #f0f2f5;
   border-radius: 999rpx;
-  border: 1rpx solid rgba(246, 239, 228, 0.12);
 }
 .dot {
-  width: 10rpx;
-  height: 10rpx;
+  width: 8rpx;
+  height: 8rpx;
   border-radius: 50%;
-  background: #6ecfbc;
-  margin-right: 12rpx;
+  background: #07c160;
+  margin-right: 10rpx;
   flex-shrink: 0;
 }
 .sub {
   font-size: 22rpx;
-  color: rgba(246, 239, 228, 0.72);
+  color: #646566;
   line-height: 1.4;
 }
 .sec {
   display: flex;
   align-items: center;
-  padding: 0 8rpx 20rpx;
+  padding: 0 4rpx 18rpx;
 }
 .sec-t {
   font-size: 28rpx;
   font-weight: 600;
-  color: #1c1915;
-  padding-left: 16rpx;
-  border-left: 6rpx solid #0f7a6c;
+  color: #171a1d;
+  padding-left: 14rpx;
+  border-left: 6rpx solid #07c160;
 }
 .grid {
   display: flex;
@@ -125,39 +124,39 @@ function go(url) {
 .card {
   display: flex;
   align-items: center;
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.05);
-  border-radius: 24rpx;
-  padding: 22rpx 20rpx 22rpx 22rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
+  padding: 24rpx 22rpx 24rpx 24rpx;
   margin-bottom: 16rpx;
-  box-shadow: 0 6rpx 20rpx rgba(70, 48, 20, 0.05);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .card:last-child {
   margin-bottom: 0;
 }
 .card-hover {
-  background: #f7f1e8;
+  background: #f7f8fa;
 }
 .icon {
-  width: 88rpx;
-  height: 88rpx;
-  border-radius: 24rpx;
+  width: 84rpx;
+  height: 84rpx;
+  border-radius: 18rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32rpx;
-  font-weight: 700;
+  font-size: 30rpx;
+  font-weight: 600;
   flex-shrink: 0;
 }
 .body {
   flex: 1;
   min-width: 0;
-  margin: 0 16rpx 0 20rpx;
+  margin: 0 14rpx 0 20rpx;
 }
 .arrow {
-  font-size: 40rpx;
+  font-size: 34rpx;
   line-height: 1;
-  color: #d0c4b2;
+  color: #c8c9cc;
   flex-shrink: 0;
   font-weight: 300;
 }
@@ -165,28 +164,28 @@ function go(url) {
   display: block;
   font-size: 30rpx;
   font-weight: 600;
-  color: #1c1915;
+  color: #171a1d;
   line-height: 1.35;
 }
 .hint {
   display: block;
   margin-top: 6rpx;
   font-size: 22rpx;
-  color: #8a8176;
+  color: #969799;
   line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .foot {
-  margin-top: 8rpx;
-  padding-top: 24rpx;
-  border-top: 1rpx solid rgba(31, 27, 22, 0.06);
+  margin-top: 12rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #ebedf0;
 }
 .priv {
   display: block;
   text-align: center;
   font-size: 24rpx;
-  color: #8a8176;
+  color: #969799;
 }
 </style>

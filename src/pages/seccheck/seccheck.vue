@@ -127,12 +127,12 @@ async function runMedia() {
   line-height: 1.5;
 }
 .card {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 28rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
   padding: 28rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .lab {
   display: block;
@@ -142,8 +142,8 @@ async function runMedia() {
   font-weight: 600;
 }
 .inp {
-  background: #f4efe6;
-  border-radius: 16rpx;
+  background: #f6f7f9;
+  border-radius: 12rpx;
   height: 80rpx;
   padding: 0 20rpx;
   font-size: 28rpx;
@@ -153,16 +153,16 @@ async function runMedia() {
   height: 80rpx;
   line-height: 80rpx;
   text-align: center;
-  border-radius: 18rpx;
+  border-radius: 12rpx;
   font-size: 28rpx;
   font-weight: 600;
-  background: #5b4b8a;
-  color: #f6f2ff;
+  background: #07c160;
+  color: #ffffff;
   margin-top: 12rpx;
 }
 .btn.ghost {
-  background: #e6dfd3;
-  color: #1c1915;
+  background: #f2f3f5;
+  color: #171a1d;
 }
 .row {
   display: flex;
@@ -176,7 +176,7 @@ async function runMedia() {
   height: 240rpx;
   margin-top: 16rpx;
   border-radius: 12rpx;
-  background: #efe8dc;
+  background: #f2f3f5;
 }
 .raw {
   display: block;
@@ -185,7 +185,7 @@ async function runMedia() {
   font-size: 22rpx;
   line-height: 1.5;
   color: #1f1b16;
-  background: #f4efe6;
+  background: #f6f7f9;
   padding: 20rpx;
   border-radius: 12rpx;
 }

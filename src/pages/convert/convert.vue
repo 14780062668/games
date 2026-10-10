@@ -222,26 +222,26 @@ function swap() {
 }
 .cat {
   padding: 12rpx 24rpx;
-  background: #e6dfd3;
-  color: #5c564e;
+  background: #f2f3f5;
+  color: #646566;
   border-radius: 999rpx;
   font-size: 24rpx;
   margin: 0 12rpx 12rpx 0;
 }
 .cat.on {
-  background: #1f1b16;
-  color: #f6efe4;
+  background: #171a1d;
+  color: #ffffff;
 }
 .card {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 32rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
   padding: 28rpx;
-  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .field {
-  background: #f4efe6;
-  border-radius: 22rpx;
+  background: #f6f7f9;
+  border-radius: 16rpx;
   padding: 22rpx 24rpx 18rpx;
 }
 .lab {
@@ -252,7 +252,7 @@ function swap() {
   margin-top: 8rpx;
   font-size: 32rpx;
   font-weight: 700;
-  color: #0f7a6c;
+  color: #07c160;
 }
 .inp,
 .out {
@@ -271,8 +271,8 @@ function swap() {
   margin: 18rpx auto;
   height: 64rpx;
   border-radius: 999rpx;
-  background: #1c1915;
-  color: #f6efe4;
+  background: #171a1d;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;

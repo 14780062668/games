@@ -224,24 +224,25 @@ function equals() {
   flex-direction: column;
 }
 .screen {
-  background: linear-gradient(160deg, #2a241e 0%, #1c1915 100%);
-  border-radius: 36rpx;
-  padding: 36rpx 36rpx 32rpx;
+  background: #171a1d;
+  border-radius: 24rpx;
+  padding: 32rpx 32rpx 28rpx;
   min-height: 240rpx;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
   margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
 }
 .expr {
   min-height: 40rpx;
   font-size: 26rpx;
-  color: rgba(246, 239, 228, 0.55);
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 12rpx;
 }
 .num {
-  color: #f6efe4;
+  color: #ffffff;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   word-break: break-all;
@@ -257,33 +258,32 @@ function equals() {
   width: 23.2%;
   height: 118rpx;
   margin-bottom: 14rpx;
-  border-radius: 28rpx;
+  border-radius: 20rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 40rpx;
-  font-weight: 600;
-  background: #fffdf9;
-  color: #1c1915;
-  border: 1rpx solid rgba(31, 27, 22, 0.05);
-  box-shadow: 0 8rpx 18rpx rgba(70, 48, 20, 0.05);
+  font-weight: 500;
+  background: #ffffff;
+  color: #171a1d;
+  border: none;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
 }
 .key-hover {
-  opacity: 0.72;
-  transform: scale(0.97);
+  opacity: 0.7;
 }
 .fn {
-  background: #e4dccf;
-  color: #5c564e;
+  background: #f2f3f5;
+  color: #646566;
   font-size: 32rpx;
   box-shadow: none;
 }
 .op {
-  background: #0f7a6c;
-  color: #f3fffc;
+  background: #07c160;
+  color: #ffffff;
 }
 .eq {
-  background: #c45c4a;
-  color: #fff7f5;
+  background: #171a1d;
+  color: #ffffff;
 }
 </style>

@@ -22,8 +22,8 @@ onShow(() => {})
 <style>
 page {
   height: 100%;
-  background: #ebe4d8;
-  color: #1c1915;
+  background: #f6f7f9;
+  color: #171a1d;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', sans-serif;
 }
@@ -40,14 +40,14 @@ image {
 /* #ifdef H5 */
 html,
 body {
-  background: #d8d0c4;
+  background: #e8eaed;
 }
 uni-page-body {
   max-width: 430px;
   min-height: 100%;
   margin: 0 auto;
-  background: #ebe4d8;
-  box-shadow: 0 0 48px rgba(60, 40, 16, 0.12);
+  background: #f6f7f9;
+  box-shadow: 0 0 32px rgba(0, 0, 0, 0.06);
 }
 /* #endif */
 

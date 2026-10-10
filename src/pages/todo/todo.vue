@@ -135,21 +135,21 @@ function remove(id) {
 .inp {
   flex: 1;
   height: 88rpx;
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 22rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 16rpx;
   padding: 0 24rpx;
   font-size: 28rpx;
-  box-shadow: 0 8rpx 20rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
 }
 .go {
   width: 132rpx;
   height: 88rpx;
   line-height: 88rpx;
   text-align: center;
-  background: #3d6ea8;
-  color: #fff;
-  border-radius: 22rpx;
+  background: #07c160;
+  color: #ffffff;
+  border-radius: 16rpx;
   font-size: 28rpx;
   font-weight: 600;
 }
@@ -158,8 +158,8 @@ function remove(id) {
 }
 .filters {
   display: flex;
-  background: #e6dfd3;
-  border-radius: 16rpx;
+  background: #f2f3f5;
+  border-radius: 12rpx;
   padding: 6rpx;
   margin-bottom: 22rpx;
 }
@@ -167,15 +167,15 @@ function remove(id) {
   flex: 1;
   text-align: center;
   padding: 14rpx 0;
-  border-radius: 12rpx;
+  border-radius: 10rpx;
   font-size: 26rpx;
-  color: #8a8176;
+  color: #646566;
 }
 .f.on {
-  background: #fffdf9;
-  color: #1c1915;
+  background: #ffffff;
+  color: #171a1d;
   font-weight: 600;
-  box-shadow: 0 4rpx 12rpx rgba(70, 48, 20, 0.06);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
 }
 .empty {
   text-align: center;
@@ -184,31 +184,31 @@ function remove(id) {
   font-size: 26rpx;
 }
 .item {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.05);
-  border-radius: 22rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 16rpx;
   padding: 24rpx;
   margin-bottom: 14rpx;
   display: flex;
   align-items: center;
-  box-shadow: 0 8rpx 20rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
 }
 .check {
   width: 40rpx;
   height: 40rpx;
-  border-radius: 12rpx;
-  border: 3rpx solid #cfc6b8;
+  border-radius: 10rpx;
+  border: 2rpx solid #dcdee0;
   margin-right: 18rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24rpx;
-  color: #fff;
+  color: #ffffff;
   flex-shrink: 0;
 }
 .item.done .check {
-  background: #0f7a6c;
-  border-color: #0f7a6c;
+  background: #07c160;
+  border-color: #07c160;
 }
 .txt {
   flex: 1;

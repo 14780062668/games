@@ -124,18 +124,18 @@ function save() {
   padding: 24rpx 28rpx 80rpx;
 }
 .card {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 28rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
   padding: 24rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .preview {
   width: 100%;
   height: 360rpx;
-  border-radius: 16rpx;
-  background: #efe8dc;
+  border-radius: 12rpx;
+  background: #f2f3f5;
 }
 .preview.sm {
   height: 240rpx;
@@ -147,16 +147,16 @@ function save() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #8a8176;
+  color: #969799;
   font-size: 26rpx;
-  border: 2rpx dashed #b7aa96;
-  border-radius: 20rpx;
-  background: #f3eee4;
+  border: 2rpx dashed #dcdee0;
+  border-radius: 16rpx;
+  background: #f7f8fa;
 }
 .plus {
   font-size: 56rpx;
   margin-bottom: 8rpx;
-  color: #5b4b8a;
+  color: #07c160;
 }
 .line {
   display: flex;
@@ -180,12 +180,12 @@ function save() {
   font-weight: 600;
 }
 .ghost {
-  background: #e6dfd3;
-  color: #1c1915;
+  background: #f2f3f5;
+  color: #171a1d;
 }
 .solid {
-  background: #5b4b8a;
-  color: #f6f2ff;
+  background: #07c160;
+  color: #ffffff;
 }
 .btn-hover {
   opacity: 0.85;

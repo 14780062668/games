@@ -294,8 +294,8 @@ function jsonFmt(pretty) {
 }
 .tabs {
   display: flex;
-  background: #e6dfd3;
-  border-radius: 16rpx;
+  background: #f2f3f5;
+  border-radius: 12rpx;
   padding: 6rpx;
   margin-bottom: 20rpx;
 }
@@ -303,22 +303,22 @@ function jsonFmt(pretty) {
   flex: 1;
   text-align: center;
   padding: 16rpx 0;
-  border-radius: 12rpx;
+  border-radius: 10rpx;
   font-size: 24rpx;
-  color: #8a8278;
+  color: #646566;
 }
 .tab.on {
-  background: #fffdf9;
-  color: #1c1915;
+  background: #ffffff;
+  color: #171a1d;
   font-weight: 600;
-  box-shadow: 0 4rpx 12rpx rgba(70, 48, 20, 0.06);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
 }
 .card {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 28rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
   padding: 28rpx;
-  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .lab {
   display: block;
@@ -327,8 +327,8 @@ function jsonFmt(pretty) {
   margin-bottom: 12rpx;
 }
 .inp {
-  background: #f4efe6;
-  border-radius: 16rpx;
+  background: #f6f7f9;
+  border-radius: 12rpx;
   height: 80rpx;
   padding: 0 20rpx;
   font-size: 28rpx;
@@ -337,17 +337,17 @@ function jsonFmt(pretty) {
 .area {
   width: 100%;
   height: 360rpx;
-  background: #f4efe6;
-  border-radius: 16rpx;
+  background: #f6f7f9;
+  border-radius: 12rpx;
   padding: 20rpx;
   font-size: 26rpx;
   margin-bottom: 16rpx;
 }
 .pick {
   min-height: 240rpx;
-  background: #f7f2ea;
-  border: 2rpx dashed #d4cbbd;
-  border-radius: 20rpx;
+  background: #f7f8fa;
+  border: 2rpx dashed #dcdee0;
+  border-radius: 16rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -363,7 +363,7 @@ function jsonFmt(pretty) {
   margin-bottom: 12rpx;
 }
 .ph {
-  color: #8a8278;
+  color: #969799;
   font-size: 26rpx;
 }
 .btns {
@@ -383,12 +383,12 @@ function jsonFmt(pretty) {
   margin-bottom: 16rpx;
 }
 .ghost {
-  background: #e6dfd3;
-  color: #1c1915;
+  background: #f2f3f5;
+  color: #171a1d;
 }
 .solid {
-  background: #2f6f8a;
-  color: #f3fbff;
+  background: #07c160;
+  color: #ffffff;
 }
 .outbox {
   margin-top: 20rpx;
@@ -429,16 +429,16 @@ function jsonFmt(pretty) {
 .pickbox {
   height: 80rpx;
   line-height: 80rpx;
-  background: #f4efe6;
-  border-radius: 16rpx;
+  background: #f6f7f9;
+  border-radius: 12rpx;
   padding: 0 20rpx;
   font-size: 28rpx;
 }
 .swatch {
   height: 80rpx;
-  border-radius: 16rpx;
+  border-radius: 12rpx;
   margin-bottom: 16rpx;
-  border: 1px solid #e7e0d6;
+  border: 1px solid #ebedf0;
 }
 .offscreen {
   position: fixed;

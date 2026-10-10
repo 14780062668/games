@@ -72,7 +72,7 @@
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "瘦图盒",
-    "navigationBarBackgroundColor": "#EBE4D8",
-    "backgroundColor": "#EBE4D8"
+    "navigationBarBackgroundColor": "#F6F7F9",
+    "backgroundColor": "#F6F7F9"
   }
 }

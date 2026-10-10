@@ -57,11 +57,11 @@ function no() {
   padding: 24rpx 28rpx 80rpx;
 }
 .card {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 28rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
   padding: 36rpx 32rpx 20rpx;
-  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .h {
   display: block;
@@ -99,12 +99,12 @@ function no() {
   font-weight: 600;
 }
 .ghost {
-  background: #e6dfd3;
-  color: #1c1915;
+  background: #f2f3f5;
+  color: #171a1d;
 }
 .solid {
-  background: #1f1b16;
-  color: #f6efe4;
+  background: #07c160;
+  color: #ffffff;
   padding: 0;
   margin: 0;
 }

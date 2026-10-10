@@ -163,18 +163,18 @@ function copyHtml() {
   padding: 24rpx 28rpx 80rpx;
 }
 .card {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 28rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
   padding: 28rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .pick {
   min-height: 200rpx;
-  background: #f7f2ea;
-  border: 2rpx dashed #d4cbbd;
-  border-radius: 20rpx;
+  background: #f7f8fa;
+  border: 2rpx dashed #dcdee0;
+  border-radius: 16rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,7 +182,7 @@ function copyHtml() {
   padding: 24rpx;
 }
 .ph {
-  color: #8a8278;
+  color: #969799;
   font-size: 26rpx;
   text-align: center;
   word-break: break-all;
@@ -204,12 +204,12 @@ function copyHtml() {
   margin-top: 16rpx;
 }
 .ghost {
-  background: #e6dfd3;
-  color: #1c1915;
+  background: #f2f3f5;
+  color: #171a1d;
 }
 .solid {
-  background: #6b4c7a;
-  color: #f8f1fa;
+  background: #07c160;
+  color: #ffffff;
 }
 .err {
   display: block;
@@ -247,7 +247,7 @@ function copyHtml() {
 .area {
   width: 100%;
   height: 320rpx;
-  background: #f4efe6;
+  background: #f6f7f9;
   border-radius: 16rpx;
   padding: 20rpx;
   font-size: 22rpx;

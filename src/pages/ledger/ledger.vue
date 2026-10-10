@@ -244,15 +244,16 @@ function remove(id) {
 }
 .sum {
   display: flex;
-  background: linear-gradient(155deg, #2c261f 0%, #1c1915 70%, #24312d 100%);
-  border-radius: 32rpx;
-  padding: 32rpx 8rpx 28rpx;
+  background: #171a1d;
+  border-radius: 20rpx;
+  padding: 28rpx 8rpx 24rpx;
   margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
 }
 .cell {
   width: 33.33%;
   padding: 0 16rpx;
-  border-right: 1rpx solid rgba(246, 239, 228, 0.12);
+  border-right: 1rpx solid rgba(255, 255, 255, 0.1);
 }
 .cell:last-child {
   border-right: none;
@@ -263,40 +264,40 @@ function remove(id) {
 .lab {
   display: block;
   font-size: 22rpx;
-  color: rgba(246, 239, 228, 0.55);
+  color: rgba(255, 255, 255, 0.55);
 }
 .val {
   display: block;
   margin-top: 10rpx;
   font-size: 34rpx;
   font-weight: 700;
-  color: #f6efe4;
+  color: #ffffff;
   word-break: break-all;
 }
 .sum .in {
-  color: #8ee0d4;
+  color: #6ee7b7;
 }
 .sum .out {
-  color: #f3b2a6;
+  color: #fca5a5;
 }
 .in {
-  color: #0f7a6c;
+  color: #07c160;
 }
 .out {
-  color: #c45c4a;
+  color: #ee0a24;
 }
 .card {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.06);
-  border-radius: 28rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 20rpx;
   padding: 28rpx;
   margin-bottom: 28rpx;
-  box-shadow: 0 12rpx 28rpx rgba(70, 48, 20, 0.04);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
 }
 .tabs {
   display: flex;
-  background: #e6dfd3;
-  border-radius: 16rpx;
+  background: #f2f3f5;
+  border-radius: 12rpx;
   padding: 6rpx;
   margin-bottom: 20rpx;
 }
@@ -304,15 +305,15 @@ function remove(id) {
   flex: 1;
   text-align: center;
   padding: 14rpx 0;
-  border-radius: 12rpx;
+  border-radius: 10rpx;
   font-size: 26rpx;
-  color: #8a8176;
+  color: #646566;
 }
 .tab.on {
-  background: #fffdf9;
-  color: #1c1915;
+  background: #ffffff;
+  color: #171a1d;
   font-weight: 600;
-  box-shadow: 0 4rpx 12rpx rgba(70, 48, 20, 0.06);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
 }
 .cates {
   display: flex;
@@ -321,15 +322,15 @@ function remove(id) {
 }
 .chip {
   padding: 10rpx 22rpx;
-  background: #e6dfd3;
+  background: #f2f3f5;
   border-radius: 999rpx;
   font-size: 24rpx;
-  color: #5c564e;
+  color: #646566;
   margin: 0 12rpx 12rpx 0;
 }
 .chip.on {
-  background: #1f1b16;
-  color: #f6efe4;
+  background: #171a1d;
+  color: #ffffff;
 }
 .row {
   display: flex;
@@ -339,8 +340,8 @@ function remove(id) {
 .inp,
 .date,
 .note {
-  background: #f4efe6;
-  border-radius: 16rpx;
+  background: #f6f7f9;
+  border-radius: 12rpx;
   height: 80rpx;
   padding: 0 20rpx;
   font-size: 28rpx;
@@ -362,9 +363,9 @@ function remove(id) {
   height: 80rpx;
   line-height: 80rpx;
   text-align: center;
-  background: #0f7a6c;
-  color: #f3fffc;
-  border-radius: 18rpx;
+  background: #07c160;
+  color: #ffffff;
+  border-radius: 12rpx;
   font-size: 30rpx;
   font-weight: 600;
 }
@@ -391,14 +392,15 @@ function remove(id) {
   font-size: 22rpx;
 }
 .item {
-  background: #fffdf9;
-  border: 1rpx solid rgba(31, 27, 22, 0.05);
-  border-radius: 22rpx;
+  background: #ffffff;
+  border: none;
+  border-radius: 16rpx;
   padding: 24rpx;
   margin-bottom: 12rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
 }
 .cate {
   display: block;
@@ -420,10 +422,10 @@ function remove(id) {
   font-weight: 700;
 }
 .amt.in {
-  color: #0f7a6c;
+  color: #07c160;
 }
 .amt.out {
-  color: #c45c4a;
+  color: #ee0a24;
 }
 .del {
   display: block;
