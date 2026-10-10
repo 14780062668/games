@@ -49,6 +49,31 @@
       }
     },
     {
+      "path": "pages/days/days",
+      "style": {
+        "navigationBarTitleText": "倒数日"
+      }
+    },
+    {
+      "path": "pages/wheel/wheel",
+      "style": {
+        "navigationBarTitleText": "随机转盘"
+      }
+    },
+    {
+      "path": "pages/barrage/barrage",
+      "style": {
+        "navigationBarTitleText": "手持弹幕",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/scan/scan",
+      "style": {
+        "navigationBarTitleText": "扫码识别"
+      }
+    },
+    {
       "path": "pages/seccheck/seccheck",
       "style": {
         "navigationBarTitleText": "内容安全检测"

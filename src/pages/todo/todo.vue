@@ -147,7 +147,7 @@ function remove(id) {
   height: 88rpx;
   line-height: 88rpx;
   text-align: center;
-  background: #07c160;
+  background: linear-gradient(135deg, #0bc36a, #059e54);
   color: #ffffff;
   border-radius: 16rpx;
   font-size: 28rpx;

@@ -130,7 +130,8 @@ function save() {
   margin-top: 20rpx;
 }
 .solid {
-  background: #07c160;
+  background: linear-gradient(135deg, #0bc36a, #059e54);
+  box-shadow: 0 6rpx 16rpx rgba(7, 193, 96, 0.25);
   color: #ffffff;
 }
 .btn-hover {

@@ -1,6 +1,9 @@
 <template>
   <view class="home">
     <view class="hero">
+      <view class="hero-deco a" />
+      <view class="hero-deco b" />
+      <text class="hello">{{ greetText }}</text>
       <text class="date">{{ dateText }}</text>
       <view class="tag">
         <view class="dot" />
@@ -44,6 +47,15 @@ const dateText = computed(() => {
   return d.getMonth() + 1 + '月' + d.getDate() + '日 周' + w[d.getDay()]
 })
 
+// 按时段问候
+const greetText = computed(() => {
+  const h = new Date().getHours()
+  if (h < 6) return '夜深了'
+  if (h < 12) return '早上好'
+  if (h < 18) return '下午好'
+  return '晚上好'
+})
+
 const tools = [
   { name: '图片压缩', hint: '本地缩小照片体积', path: '/pages/compress/compress', mark: '图', bg: '#e8f3ff', fg: '#0b6bcb' },
   { name: '二维码', hint: '文字链接生成二维码', path: '/pages/qr/qr', mark: '码', bg: '#fff1e6', fg: '#c2410c' },
@@ -52,6 +64,10 @@ const tools = [
   { name: '计算器', hint: '精准四则运算', path: '/pages/calc/calc', mark: '算', bg: '#f1f2f4', fg: '#171a1d' },
   { name: '记账', hint: '收支一目了然', path: '/pages/ledger/ledger', mark: '账', bg: '#e0f2f1', fg: '#0f766e' },
   { name: '待办', hint: '把事记下来', path: '/pages/todo/todo', mark: '待', bg: '#e8f0fe', fg: '#1d4ed8' },
+  { name: '倒数日', hint: '重要日子倒计时', path: '/pages/days/days', mark: '日', bg: '#fff7e6', fg: '#d48806' },
+  { name: '随机转盘', hint: '帮你做个决定', path: '/pages/wheel/wheel', mark: '转', bg: '#ffe4e6', fg: '#e11d48' },
+  { name: '手持弹幕', hint: '全屏滚动大字', path: '/pages/barrage/barrage', mark: '幕', bg: '#171a1d', fg: '#07c160' },
+  { name: '扫码识别', hint: '扫二维码条形码', path: '/pages/scan/scan', mark: '扫', bg: '#eef2ff', fg: '#4f46e5' },
   // #ifdef H5
   { name: 'Word转HTML', hint: 'docx 转网页', path: '/pages/docx/docx', mark: '文', bg: '#fdf2f8', fg: '#be185d' },
   // #endif
@@ -69,40 +85,67 @@ function go(url) {
   padding: 20rpx 28rpx 64rpx;
 }
 .hero {
-  background: #ffffff;
-  border-radius: 20rpx;
-  padding: 28rpx 28rpx 24rpx;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0bc36a 0%, #059e54 100%);
+  border-radius: 28rpx;
+  padding: 40rpx 32rpx 32rpx;
   margin-bottom: 28rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+  box-shadow: 0 12rpx 28rpx rgba(7, 193, 96, 0.28);
+}
+/* 装饰光斑，增加层次 */
+.hero-deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+.hero-deco.a {
+  width: 240rpx;
+  height: 240rpx;
+  right: -70rpx;
+  top: -90rpx;
+}
+.hero-deco.b {
+  width: 140rpx;
+  height: 140rpx;
+  right: 70rpx;
+  bottom: -60rpx;
+}
+.hello {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1rpx;
 }
 .date {
   display: block;
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #171a1d;
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
   letter-spacing: 0;
 }
 .tag {
   display: flex;
   align-items: center;
-  margin-top: 14rpx;
-  padding: 8rpx 16rpx;
+  margin-top: 24rpx;
+  padding: 10rpx 20rpx;
   width: fit-content;
   max-width: 100%;
-  background: #f0f2f5;
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 999rpx;
 }
 .dot {
-  width: 8rpx;
-  height: 8rpx;
+  width: 10rpx;
+  height: 10rpx;
   border-radius: 50%;
-  background: #07c160;
+  background: #a7f3d0;
   margin-right: 10rpx;
   flex-shrink: 0;
 }
 .sub {
   font-size: 22rpx;
-  color: #646566;
+  color: #ffffff;
   line-height: 1.4;
 }
 .sec {
@@ -126,21 +169,23 @@ function go(url) {
   align-items: center;
   background: #ffffff;
   border: none;
-  border-radius: 20rpx;
-  padding: 24rpx 22rpx 24rpx 24rpx;
-  margin-bottom: 16rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
+  border-radius: 24rpx;
+  padding: 26rpx 24rpx;
+  margin-bottom: 18rpx;
+  box-shadow: 0 4rpx 16rpx rgba(23, 26, 29, 0.06);
+  transition: transform 0.15s ease;
 }
 .card:last-child {
   margin-bottom: 0;
 }
 .card-hover {
   background: #f7f8fa;
+  transform: scale(0.985);
 }
 .icon {
-  width: 84rpx;
-  height: 84rpx;
-  border-radius: 18rpx;
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 24rpx;
   display: flex;
   align-items: center;
   justify-content: center;

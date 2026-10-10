@@ -156,7 +156,7 @@ async function runMedia() {
   border-radius: 12rpx;
   font-size: 28rpx;
   font-weight: 600;
-  background: #07c160;
+  background: linear-gradient(135deg, #0bc36a, #059e54);
   color: #ffffff;
   margin-top: 12rpx;
 }
